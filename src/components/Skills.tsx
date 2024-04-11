@@ -23,30 +23,30 @@ let additionalSkills: string[] = ["TypeScript", "GIT", "Docker", "JWT"]
 export default function Skills() {
   return (
     <>
-      <div className={st.partHead}>Используемый стек технологий</div>
+      <h1 className={st.partHead}>Используемый стек технологий</h1>
       <div className={st.stackList}>
         <div className={st.stackPart}>
-          <div className={st.stackPartHead}>FRONTEND</div>
+          <h2 className={st.stackPartHead}>FRONTEND</h2>
           {frontendSkills.map((e, key) => (
-            <div className={st.stackPartText} key={key}>
+            <li className={st.stackPartText} key={key}>
               {e}
-            </div>
+            </li>
           ))}
         </div>
         <div className={st.stackPart}>
-          <div className={st.stackPartHead}>BACKEND</div>
+          <h2 className={st.stackPartHead}>BACKEND</h2>
           {backendSkills.map((e, key) => (
-            <div className={st.stackPartText} key={key}>
+            <li className={st.stackPartText} key={key}>
               {e}
-            </div>
+            </li>
           ))}
         </div>
         <div className={st.stackPart}>
-          <div className={st.stackPartHead}>А ТАКЖЕ</div>
+          <h2 className={st.stackPartHead}>А ТАКЖЕ</h2>
           {additionalSkills.map((e, key) => (
-            <div className={st.stackPartText} key={key}>
+            <li className={st.stackPartText} key={key}>
               {e}
-            </div>
+            </li>
           ))}
         </div>
       </div>

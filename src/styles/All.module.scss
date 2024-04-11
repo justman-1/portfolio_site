@@ -12,16 +12,22 @@
 
 .partHead {
   font-size: 3em;
+  font-weight: 500;
   margin-top: 10%;
   margin-bottom: 4%;
+  @media (max-width: 800px) {
+    font-size: 7.5vw;
+  }
 }
 .aboutText {
   margin-top: 4%;
   margin-left: 5%;
+  font-weight: 500;
   width: 85%;
   font-size: 1.3em;
   @media (max-width: 800px) {
     margin-top: 6%;
+    font-size: 4vw;
   }
 }
 .link {
@@ -55,7 +61,11 @@
         border-right: 2px solid white;
       }
     }
+    @media (max-width: 600px) {
+      font-size: 5vw;
+    }
     .stackPartHead {
+      font-size: inherit;
       font-weight: 600;
       letter-spacing: 2px;
       margin-bottom: 1.2em;
@@ -64,9 +74,6 @@
       margin-top: 0.9em;
       word-spacing: 2px;
       margin-left: 1em;
-      &:before {
-        content: "• ";
-      }
     }
   }
 }

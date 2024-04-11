@@ -23,6 +23,10 @@ let skillState: number[] = []
 for (let i = 0; i < skills.length; ++i) skillState.push(0)
 let minSkillState: number = 0
 let minSkillStateOst: number = skills.length
+let baseLetter = {
+  height: "50px",
+  fontSize: "2.1em",
+}
 
 export default function Main() {
   const [text1, setText1] = useState<string>("")
@@ -50,6 +54,11 @@ export default function Main() {
       loaded = true
       let wid: number = lettersRef.current!.clientWidth
       let colvo: number = Math.floor(wid / 50)
+      if (window.innerWidth < 600) {
+        colvo = Math.floor(wid / 40)
+        baseLetter.height = "40px"
+        baseLetter.fontSize = "1.8em"
+      }
       for (let i = 0; i < colvo; ++i)
         letters.push([
           String.fromCharCode(65 + Math.floor(Math.random() * 25)) + "",
@@ -76,7 +85,7 @@ export default function Main() {
             computer.current!.style.transition = "all 5s ease"
             if (window.innerWidth > 800)
               computer.current!.style.filter = "blur(0)"
-            else computer.current!.style.filter = "blur(4)"
+            else computer.current!.style.filter = "blur(3)"
             for (let i = 0; i < s3.length; ++i)
               changeLetter3(s3.substring(0, i + 1), i)
             setTimeout(() => {
@@ -136,16 +145,16 @@ export default function Main() {
   }, [letState])
   return (
     <>
-      <div className={st.header}>Roman Malneu</div>
+      <header className={st.header}>Roman Malneu</header>
       <div className={st.container}>
-        <div className={st.links} ref={linksDiv}>
+        <nav className={st.links} ref={linksDiv}>
           <div className={st.item}>Я</div>
           <div className={st.item}>Навыки</div>
           <div className={st.item}>Портфолио</div>
           <div className={st.item}>Контакты</div>
           <div className={st.bord}></div>
           <div className={st.item}>Дополнительно</div>
-        </div>
+        </nav>
         <div className={st.dev1}>{text1}</div>
         <div className={st.main}>
           <div className={st.main1}>
@@ -176,6 +185,8 @@ export default function Main() {
                 style={{
                   width: 100 / letters.length + "%",
                   color: e[1] ? "#E50A0A" : "white",
+                  height: baseLetter.height,
+                  fontSize: baseLetter.fontSize,
                 }}
                 key={key}
               >

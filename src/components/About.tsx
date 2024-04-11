@@ -4,8 +4,8 @@ export default function About() {
   function scrollToPortfolio() {}
   return (
     <div>
-      <div className={st.partHead}>Немного о себе</div>
-      <div className={st.aboutText}>
+      <h1 className={st.partHead}>Немного о себе</h1>
+      <h2 className={st.aboutText}>
         Веб-программированием занимаюсь начиная с середины 2020 года(то есть
         опыт разработки около 3.5 лет). Коммерческий опыт написания сайтов
         получил на фриланс-биржах, суммарно на все заказы в таком формате
@@ -25,7 +25,7 @@ export default function About() {
           здесь
         </span>
         .
-      </div>
+      </h2>
     </div>
   )
 }

@@ -148,6 +148,7 @@
         }
         @media (max-width: 800px) {
           font-size: 4vw;
+          margin-top: 2.5em;
         }
       }
     }
@@ -169,6 +170,9 @@
     margin: 12% auto;
     display: flex;
     animation: appearOther 8.3s ease-out;
+    @media (max-width: 800px) {
+      margin-top: 5%;
+    }
     .letter {
       height: 50px;
       border: 1px solid white;
