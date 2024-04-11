@@ -2,6 +2,9 @@ import Image from "next/image"
 import st from "../styles/Main.module.scss"
 import { use, useEffect, useRef, useState } from "react"
 
+const interval1: number = 80
+const interval2: number = 20
+const letterInterval: number = 100
 let loaded: boolean = false
 
 let skills: string[] = [
@@ -42,12 +45,12 @@ export default function Main() {
       if (n == 1) setText1(s)
       if (n == 2) setText2(s)
       if (n == 3) setText3(s)
-    }, 80 * i)
+    }, interval1 * i)
   }
   function changeLetter3(s: string, i: number): void {
     setTimeout(() => {
       setText3(s)
-    }, 20 * i)
+    }, interval2 * i)
   }
   useEffect(() => {
     if (!loaded) {
@@ -90,9 +93,9 @@ export default function Main() {
               changeLetter3(s3.substring(0, i + 1), i)
             setTimeout(() => {
               linksDiv.current!.style.opacity = "1"
-            }, 20 * s3.length + 100)
-          }, s2.length * 80 + 100)
-        }, s1.length * 80)
+            }, interval2 * s3.length + 100)
+          }, s2.length * interval1 + 100)
+        }, s1.length * interval1)
       }, 700)
     }
   }, [])
@@ -107,7 +110,7 @@ export default function Main() {
       setLetters(newLetters)
       setTimeout(() => {
         setLetState(letState + 1)
-      }, 100 - letState * 3)
+      }, letterInterval - letState * 2)
     } else {
       newLetters = newLetters.concat(letters)
       let skillI: number = Math.floor(Math.random() * skills.length)
@@ -176,6 +179,7 @@ export default function Main() {
           style={{
             transition: `all ${letState == 30 ? "0.3" : "1"}s linear`,
             filter: `blur(${letState < 30 ? "2" : "0"}px)`,
+            /* transform: `scale(${letState < 30 ? "0.93" : "1"})`, */
           }}
         >
           {letters.map((e, key) => {

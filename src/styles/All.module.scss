@@ -46,13 +46,13 @@
     margin: 0px 1%;
     width: 9em;
     padding-left: 50px;
+    padding-bottom: 30px;
     border-left: 2px solid white;
     @media (max-width: 900px) {
       margin: 0px auto;
       border-left: 0px solid white;
       font-size: 1.8em;
       padding-top: 30px;
-      padding-bottom: 30px;
       border-bottom: 2px solid white;
       &:nth-child(2n-1) {
         border-left: 2px solid white;
