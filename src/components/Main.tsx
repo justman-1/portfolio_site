@@ -56,12 +56,8 @@ export default function Main() {
     if (!loaded) {
       loaded = true
       let wid: number = lettersRef.current!.clientWidth
-      let colvo: number = Math.floor(wid / 50)
-      if (window.innerWidth < 600) {
-        colvo = Math.floor(wid / 40)
-        baseLetter.height = "40px"
-        baseLetter.fontSize = "1.8em"
-      }
+      let colvo: number =
+        window.innerWidth < 600 ? Math.floor(wid / 40) : Math.floor(wid / 50)
       for (let i = 0; i < colvo; ++i)
         letters.push([
           String.fromCharCode(65 + Math.floor(Math.random() * 25)) + "",
@@ -88,7 +84,7 @@ export default function Main() {
             computer.current!.style.transition = "all 5s ease"
             if (window.innerWidth > 800)
               computer.current!.style.filter = "blur(0)"
-            else computer.current!.style.filter = "blur(3)"
+            else computer.current!.style.filter = "brightness(20) blur(0.001)"
             for (let i = 0; i < s3.length; ++i)
               changeLetter3(s3.substring(0, i + 1), i)
             setTimeout(() => {
