@@ -161,7 +161,7 @@ export default function Main() {
             <div className={st.mainText}>{text3}</div>
           </div>
           <Image
-            src="/computer_main.png"
+            src="/wave_main.jpeg"
             alt=""
             width={1200}
             height={1200}

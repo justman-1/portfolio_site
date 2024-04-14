@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { useEffect, useRef, useState } from "react"
+import { memo, useEffect, useRef, useState } from "react"
 import st from "../styles/All.module.scss"
 
 interface propsType {
@@ -16,12 +16,53 @@ let imgWid: number = 1;
 let imgSourcesCopy: string[] = []
 let imgLast = -1
 
+interface ImgPropsType{
+  src: string
+}
+
+const ImgMemo = memo(function comp(props: ImgPropsType){
+  return(
+    <Image src={"/portfolio" + props.src} width={900} height={900} alt="Загружаюсь..." className={st.projectImgIn}/>
+  )
+})
+
 export default function Project(props: propsType): JSX.Element {
-  const [imgI, setImgI] = useState<number>(0)
   const line = useRef<HTMLDivElement>(null)
   const imgsRef = useRef<HTMLDivElement>(null)
   const [imgSources, setImgSources] = useState<string[]>([])
-  const [imgTrans, setImgTrans] = useState<number>(1)
+  const [imgAnim, setImgAnim] = useState<string>("")
+  function toggleImg(isRight: boolean){
+    imgChanging = false
+    if(isRight)
+      imgLast = imgLast == props.imgSources.length-1 ? 0 : imgLast+1
+    else
+      imgLast = imgLast == 0 ? props.imgSources.length-1 : imgLast-1
+    console.log("add: " + imgLast)
+    line.current!.style.transition = "all 0s linear"
+    line.current!.style.width = "0%"
+    let preSources: string[] = imgSourcesCopy
+    let empty: string[] = []
+    if(isRight){
+      preSources.push(props.imgSources[imgLast])
+      preSources.splice(0, 1)
+    }
+    else{//5 1 2 3 4 5 1
+      let imgStart: number = (imgLast - 2 + props.imgSources.length) % props.imgSources.length 
+      console.log("imgStart: " + imgStart)
+      preSources.unshift(props.imgSources[imgStart])
+      preSources.splice(preSources.length-1, 1)
+    } 
+    imgSourcesCopy = preSources
+    console.log(imgSources)
+    console.log(preSources)
+    setImgAnim("")
+    if(isRight)
+      setImgAnim("imgToRight 1s ease")
+    else
+      setImgAnim("imgToLeft 1s ease")
+    console.log("anim: " + imgAnim)
+    setImgSources(empty.concat(preSources))
+  }
   useEffect(()=>{
     if(!loaded){
       loaded = true;
@@ -30,51 +71,32 @@ export default function Project(props: propsType): JSX.Element {
       console.log("props: ")
       console.log(props)
       let empty: string[] = []
-      let preSources: string[] = props.imgSources
-      preSources.unshift(preSources[preSources.length-1])
-      preSources.push(preSources[1])
+      let preSources: string[] = props.imgSources.slice(1)
+      preSources.unshift(props.imgSources[props.imgSources.length-1])
       console.log(props.imgSources)
       console.log(preSources)
       setImgSources(empty.concat(preSources))
       imgSourcesCopy = preSources
-      imgLast = 0
+      imgLast = 1
     }
   }, [])
   useEffect(() => {
     console.log("using: " + props.using)
     if (props.using && !imgChanging) {
       imgChanging = true
+      setImgAnim("")
+      setImgAnim("imgToRight 1s ease")
       line.current!.style.transition = "all 7s linear"
       line.current!.style.width = "95%"
       let saveChangeImgI: number = changeImgI
       setTimeout(() => {
         if (saveChangeImgI == changeImgI) {
           changeImgI++
-          imgLast = imgLast == props.imgSources.length-1 ? 0 : imgLast+1
-          line.current!.style.transition = "all 0s linear"
-          line.current!.style.width = "0%"
-          let preSources: string[] = imgSourcesCopy
-          let empty: string[] = []
-          preSources.push(props.imgSources[imgLast])
-          preSources.splice(0, 1)
-          imgSourcesCopy = preSources
-          console.log(imgSources)
-          console.log(preSources)
-          setImgTrans(0)
-          setImgSources(empty.concat(preSources))
-          setImgI(imgI-1)
-          setTimeout(
-            () => {
-              imgChanging = false
-              setImgTrans(1)
-              setImgI(prev => prev != props.imgSources.length - 3 ? prev + 1 : 0)
-            },
-            50
-          )
+          toggleImg(true)
         }
       }, 7000)
-    } else if (imgI != 0) setImgI(0)
-  }, [imgI])
+    }
+  }, [imgSources])
   return (
     <div className={st.project}>
       <div className={st.projectText}>
@@ -83,18 +105,13 @@ export default function Project(props: propsType): JSX.Element {
       </div>
       <div className={st.projectImages}>
         <div className={st.projectImgsFlex} ref={imgsRef}>
-          {imgSources.map((e, i) => {
+          {imgSources.map((src, i) => {
+            if(i ==0 )
+              console.log("rerender")
             return (
-              <Image
-                className={st.projectImg}
-                loading="lazy"
-                src={`/portfolio${e}`}
-                style={{marginLeft: i == 0 ? -(imgI+1) * imgWid + "px" : "0px", transition: `all ${imgTrans}s ease`}}
-                key={i}
-                width={900}
-                height={900}
-                alt="Загружаюсь..."
-              />
+              <div className={st.projectImg} style={{animation: i == 0 ? imgAnim : ""}} key={i+changeImgI}>
+                <ImgMemo src={src}/>
+              </div>
             )
           })}
         </div>

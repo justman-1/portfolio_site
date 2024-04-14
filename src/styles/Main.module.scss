@@ -156,6 +156,8 @@
       width: 58%;
       height: auto;
       opacity: 0;
+      border-radius: 100%;
+      transform: scale(0.8);
       transition: all 0.8s ease;
       filter: blur(10em);
       @media (max-width: 800px) {

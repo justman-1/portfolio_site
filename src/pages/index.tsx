@@ -1,4 +1,5 @@
 import { use, useEffect, useRef, useState } from "react"
+import Image from "next/image"
 import dynamic from "next/dynamic"
 import st from "../styles/Index.module.scss"
 import Plane from "../components/Plane"
@@ -13,6 +14,7 @@ const Portfolio = dynamic(() => import("../components/Portfolio"))
 export default function Home() {
   return (
     <>
+      {/* <Image src="/back1.jpeg" width={1500} height={1500} alt="" className={st.back1}/> */}
       <Main />
       <Plane />
       <Particles />

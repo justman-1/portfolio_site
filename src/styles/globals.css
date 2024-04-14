@@ -13,11 +13,11 @@
 }
 
 body {
-  background-color: #030613;
+  background-color: #030613; /* #051127 */
   color: white;
   overflow-y: scroll;
   overflow-x: hidden;
-  /*animation: appearBody 1.5s ease;*/
+  /*animation: app earBody 1.5s ease;*/
 }
 .point {
   position: absolute;
