@@ -32,11 +32,13 @@ function particles(e: any) {
   div!.style.top = y + "px"
   div!.style.left = x + "px"
   setTimeout(() => {
-    let addX: number = Math.min(Math.random() * 200 - 100, wid)
-    let addY: number = Math.random() * 200 - 100
+    let newX: number = Math.min(Math.random() * 200 - 100 + x, wid)
+    let newY: number = Math.random() * 200 - 100 + y
+    console.log(wid)
+    console.log(newX)
     div!.style.transition = "all 6s linear"
-    div!.style.top = y + addY + "px"
-    div!.style.left = x + addX + "px"
+    div!.style.top = newY + "px"
+    div!.style.left = newX + "px"
     div!.style.opacity = "0"
     setTimeout(() => {
       div!.style.transition = "all 0s linear"
@@ -49,7 +51,8 @@ export default function Particles() {
   useEffect(() => {
     if (!loaded) {
       loaded = true
-      wid = window.innerWidth - 5
+      wid = window.innerWidth - 20
+      console.log(wid)
       for (let i = 0; i < 80; ++i) {
         let div: HTMLDivElement = document.createElement("div")
         div.className = "point"
