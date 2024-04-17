@@ -14,6 +14,7 @@ function stackGet(): HTMLDivElement | null {
 }
 
 let loaded: boolean = false
+let wid: number = 0
 let stack: Stack = { to: null, div: null }
 
 let canAddPoint: boolean = true
@@ -31,7 +32,7 @@ function particles(e: any) {
   div!.style.top = y + "px"
   div!.style.left = x + "px"
   setTimeout(() => {
-    let addX: number = Math.random() * 200 - 100
+    let addX: number = Math.min(Math.random() * 200 - 100, wid)
     let addY: number = Math.random() * 200 - 100
     div!.style.transition = "all 6s linear"
     div!.style.top = y + addY + "px"
@@ -48,6 +49,7 @@ export default function Particles() {
   useEffect(() => {
     if (!loaded) {
       loaded = true
+      wid = window.innerWidth - 5
       for (let i = 0; i < 80; ++i) {
         let div: HTMLDivElement = document.createElement("div")
         div.className = "point"
