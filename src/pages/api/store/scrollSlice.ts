@@ -5,7 +5,6 @@ const sm = createSlice({
   initialState: false,
   reducers: {
     changeNeed(state, action) {
-      console.log("action: " + action)
       state = action.payload
     },
   },

@@ -14,7 +14,13 @@ const Portfolio = dynamic(() => import("../components/Portfolio"))
 export default function Home() {
   return (
     <>
-      {/* <Image src="/back1.jpeg" width={1500} height={1500} alt="" className={st.back1}/> */}
+      {/* <Image
+        src="/back1.jpg"
+        width={1700}
+        height={1700}
+        alt=""
+        className={st.back1}
+      /> */}
       <Main />
       <Plane />
       <Particles />

@@ -161,7 +161,7 @@ export default function Main() {
             <div className={st.mainText}>{text3}</div>
           </div>
           <Image
-            src="/wave_main.jpeg"
+            src="/computer_main.png"
             alt=""
             width={1200}
             height={1200}
@@ -184,7 +184,7 @@ export default function Main() {
                 className={st.letter}
                 style={{
                   width: 100 / letters.length + "%",
-                  color: e[1] ? "#E50A0A" : "white",
+                  color: e[1] ? "#1A69F3" : "white",
                   height: baseLetter.height,
                   fontSize: baseLetter.fontSize,
                 }}

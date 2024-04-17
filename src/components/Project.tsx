@@ -9,108 +9,105 @@ interface propsType {
   using: boolean
 }
 
-let loaded: boolean = false
-let imgChanging: boolean = false
-let changeImgI: number = 0
-let imgWid: number = 1;
-let imgSourcesCopy: string[] = []
-let imgLast = -1
-
-interface ImgPropsType{
+interface ImgPropsType {
   src: string
 }
 
-const ImgMemo = memo(function comp(props: ImgPropsType){
-  return(
-    <Image src={"/portfolio" + props.src} width={900} height={900} alt="Загружаюсь..." className={st.projectImgIn}/>
+const ImgMemo = memo(function ImageMemoFunc(props: ImgPropsType) {
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  return (
+    <>
+      <Image
+        src={"/portfolio" + props.src}
+        width={900}
+        height={900}
+        loading="lazy"
+        onLoadingComplete={() => setIsLoading(false)}
+        alt="Демонстрация проекта не загрузилась :("
+        className={st.projectImgIn}
+      />
+      {/* {isLoading ? (
+        <div className={st.projectImgLoading}>Загружаюсь...</div>
+      ) : (
+        <></>
+      )} */}
+    </>
   )
 })
 
 export default function Project(props: propsType): JSX.Element {
   const line = useRef<HTMLDivElement>(null)
   const imgsRef = useRef<HTMLDivElement>(null)
+  const loaded = useRef<boolean>(false)
+  const changeImgI = useRef<number>(0)
+  const isImgChanging = useRef<boolean>(false)
+  const changedByClick = useRef<boolean>(false)
+  const [imgCurr, setImgCurr] = useState<number>(-1)
   const [imgSources, setImgSources] = useState<string[]>([])
-  const [imgAnim, setImgAnim] = useState<string>("")
-  function toggleImg(isRight: boolean){
-    imgChanging = false
-    if(isRight)
-      imgLast = imgLast == props.imgSources.length-1 ? 0 : imgLast+1
-    else
-      imgLast = imgLast == 0 ? props.imgSources.length-1 : imgLast-1
-    console.log("add: " + imgLast)
-    line.current!.style.transition = "all 0s linear"
-    line.current!.style.width = "0%"
-    let preSources: string[] = imgSourcesCopy
-    let empty: string[] = []
-    if(isRight){
-      preSources.push(props.imgSources[imgLast])
-      preSources.splice(0, 1)
-    }
-    else{//5 1 2 3 4 5 1
-      let imgStart: number = (imgLast - 2 + props.imgSources.length) % props.imgSources.length 
-      console.log("imgStart: " + imgStart)
-      preSources.unshift(props.imgSources[imgStart])
-      preSources.splice(preSources.length-1, 1)
-    } 
-    imgSourcesCopy = preSources
-    console.log(imgSources)
-    console.log(preSources)
-    setImgAnim("")
-    if(isRight)
-      setImgAnim("imgToRight 1s ease")
-    else
-      setImgAnim("imgToLeft 1s ease")
-    console.log("anim: " + imgAnim)
-    setImgSources(empty.concat(preSources))
+  function lineAnimation(on: boolean) {
+    if (!line.current) return
+    line.current.style.transition = on ? "all 7s linear" : "all 0s linear"
+    line.current.style.width = on ? "95%" : "0%"
   }
-  useEffect(()=>{
-    if(!loaded){
-      loaded = true;
-      imgWid = imgsRef.current!.offsetWidth;
-      console.log(imgWid)
-      console.log("props: ")
-      console.log(props)
-      let empty: string[] = []
-      let preSources: string[] = props.imgSources.slice(1)
-      preSources.unshift(props.imgSources[props.imgSources.length-1])
-      console.log(props.imgSources)
-      console.log(preSources)
-      setImgSources(empty.concat(preSources))
-      imgSourcesCopy = preSources
-      imgLast = 1
+  function changeImg(toRight: boolean, isButton: boolean) {
+    if (isImgChanging.current) return
+    changeImgI.current++
+    isImgChanging.current = true
+    imgsRef.current!.style.transition = `all ${isButton ? 0.5 : 1}s ease`
+    setTimeout(() => (isImgChanging.current = false), isButton ? 100 : 800)
+    if (toRight) return setImgCurr((prev) => (prev + 1) % imgSources.length)
+    setImgCurr((prev) => (prev - 1 >= 0 ? prev - 1 : imgSources.length - 1))
+  }
+  useEffect(() => {
+    if (!loaded.current) {
+      loaded.current = true
+      let preSources: string[] = props.imgSources
+      setImgSources(preSources)
+      setImgCurr(0)
     }
   }, [])
   useEffect(() => {
-    console.log("using: " + props.using)
-    if (props.using && !imgChanging) {
-      imgChanging = true
-      setImgAnim("")
-      setImgAnim("imgToRight 1s ease")
-      line.current!.style.transition = "all 7s linear"
-      line.current!.style.width = "95%"
-      let saveChangeImgI: number = changeImgI
+    if (changedByClick) {
+      changedByClick.current = false
+      let saveImgChangeI: number = changeImgI.current
       setTimeout(() => {
-        if (saveChangeImgI == changeImgI) {
-          changeImgI++
-          toggleImg(true)
+        if (saveImgChangeI == changeImgI.current) setImgCurr((prev) => prev)
+      }, 10000)
+      return
+    }
+    if (imgSources.length) {
+      lineAnimation(true)
+      changeImgI.current++
+      let saveImgChangeI: number = changeImgI.current
+      setTimeout(async () => {
+        lineAnimation(false)
+        if (saveImgChangeI == changeImgI.current) {
+          changeImg(true, false)
         }
       }, 7000)
     }
-  }, [imgSources])
+  }, [imgCurr])
+  function changeImgEvent(isRight: boolean) {
+    changeImg(isRight, true)
+    lineAnimation(false)
+    changedByClick.current = true
+  }
   return (
-    <div className={st.project}>
+    <div className={st.project} style={{ display: props.using ? "" : "none" }}>
       <div className={st.projectText}>
         <div className={st.projectTextHead}>{props.headText}</div>
         <div className={st.projectTextDesc}>{props.descText}</div>
       </div>
       <div className={st.projectImages}>
-        <div className={st.projectImgsFlex} ref={imgsRef}>
+        <div
+          className={st.projectImgsFlex}
+          ref={imgsRef}
+          style={{ left: -100 * imgCurr + "%" }}
+        >
           {imgSources.map((src, i) => {
-            if(i ==0 )
-              console.log("rerender")
             return (
-              <div className={st.projectImg} style={{animation: i == 0 ? imgAnim : ""}} key={i+changeImgI}>
-                <ImgMemo src={src}/>
+              <div className={st.projectImg} key={i}>
+                <ImgMemo src={src} />
               </div>
             )
           })}
@@ -123,6 +120,7 @@ export default function Project(props: propsType): JSX.Element {
             height={40}
             alt=""
             className={`${st.photoToggle} ${st.arr1}`}
+            onClick={() => changeImgEvent(false)}
           />
           <Image
             src="/arrow2.png"
@@ -130,9 +128,11 @@ export default function Project(props: propsType): JSX.Element {
             height={40}
             alt=""
             className={`${st.photoToggle} ${st.arr2}`}
+            onClick={() => changeImgEvent(true)}
           />
         </div>
       </div>
+      <div className={st.projectTextDescMob}>{props.descText}</div>
     </div>
   )
 }
