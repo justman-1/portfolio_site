@@ -77,12 +77,13 @@
     }
     @media (max-width: 800px) {
       margin-top: 6vh;
-      font-size: 2.5vw;
+      font-size: 3vw;
       justify-content: center;
     }
     .item {
       margin-right: 3%;
       padding: 0px 1%;
+      word-spacing: 2px;
       cursor: pointer;
       &:after {
         display: block;
@@ -175,7 +176,8 @@
     border: 1px solid white;
     margin: 12% auto;
     display: flex;
-    animation: appearOther 8.3s ease-out;
+    opacity: 0;
+    /* animation: appearOther 8.3s ease-out; */
     @media (max-width: 800px) {
       margin-top: 5%;
     }

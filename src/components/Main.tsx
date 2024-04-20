@@ -1,6 +1,9 @@
 import Image from "next/image"
 import st from "../styles/Main.module.scss"
-import { use, useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import { scroll } from "../store/scrollSlice"
+import { load } from "../store/loadSlice.ts"
+import { useAppDispatch } from "../store/hook.ts"
 
 const interval1: number = 80
 const interval2: number = 20
@@ -15,7 +18,7 @@ let skills: string[] = [
   "MONGO DB",
   "MATERIAL UI",
   "REACT JS",
-  "REDUX",
+  "REDUX TOOLKIT",
   "GIT",
   "EXPRESS JS",
   "DOCKER",
@@ -32,6 +35,7 @@ let baseLetter = {
 }
 
 export default function Main() {
+  const dispatch = useAppDispatch()
   const [text1, setText1] = useState<string>("")
   const [text2, setText2] = useState<string>("")
   const [text3, setText3] = useState<string>("")
@@ -51,6 +55,16 @@ export default function Main() {
     setTimeout(() => {
       setText3(s)
     }, interval2 * i)
+  }
+  function addComponentsAfterLoad(s3: string) {
+    setTimeout(() => {
+      linksDiv.current!.style.opacity = "1"
+      setLetState(29)
+      setTimeout(() => {
+        lettersRef.current!.style.opacity = "1"
+        setTimeout(() => dispatch(load(true)), 200)
+      }, 200)
+    }, interval2 * s3.length + 100)
   }
   useEffect(() => {
     if (!loaded) {
@@ -87,9 +101,7 @@ export default function Main() {
             else computer.current!.style.filter = "brightness(20) blur(0.001)"
             for (let i = 0; i < s3.length; ++i)
               changeLetter3(s3.substring(0, i + 1), i)
-            setTimeout(() => {
-              linksDiv.current!.style.opacity = "1"
-            }, interval2 * s3.length + 100)
+            addComponentsAfterLoad(s3)
           }, s2.length * interval1 + 100)
         }, s1.length * interval1)
       }, 700)
@@ -147,12 +159,47 @@ export default function Main() {
       <header className={st.header}>Roman Malneu</header>
       <div className={st.container}>
         <nav className={st.links} ref={linksDiv}>
-          <div className={st.item}>Я</div>
-          <div className={st.item}>Навыки</div>
-          <div className={st.item}>Портфолио</div>
-          <div className={st.item}>Контакты</div>
+          <div
+            className={st.item}
+            onClick={() => {
+              dispatch(scroll({ val: true, part: "about" }))
+            }}
+          >
+            Я
+          </div>
+          <div
+            className={st.item}
+            onClick={() => {
+              dispatch(scroll({ val: true, part: "skills" }))
+            }}
+          >
+            Навыки
+          </div>
+          <div
+            className={st.item}
+            onClick={() => {
+              dispatch(scroll({ val: true, part: "portfolio" }))
+            }}
+          >
+            Портфолио
+          </div>
+          <div
+            className={st.item}
+            onClick={() => {
+              dispatch(scroll({ val: true, part: "contacts" }))
+            }}
+          >
+            Контакты
+          </div>
           <div className={st.bord}></div>
-          <div className={st.item}>Дополнительно</div>
+          <div
+            className={st.item}
+            onClick={() => {
+              dispatch(scroll({ val: true, part: "forYou" }))
+            }}
+          >
+            Для Вас
+          </div>
         </nav>
         <div className={st.dev1}>{text1}</div>
         <div className={st.main}>
@@ -167,6 +214,7 @@ export default function Main() {
             height={1200}
             className={st.computer}
             ref={computer}
+            priority
           />
         </div>
         <div

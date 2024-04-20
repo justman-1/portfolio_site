@@ -6,7 +6,7 @@ let frontendSkills: string[] = [
   "JavaScript",
   "React JS",
   "Next JS",
-  "Redux",
+  "Redux Toolkit",
   "Sass",
   "Material UI",
 ]

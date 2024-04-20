@@ -14,23 +14,16 @@ interface ImgPropsType {
 }
 
 const ImgMemo = memo(function ImageMemoFunc(props: ImgPropsType) {
-  const [isLoading, setIsLoading] = useState<boolean>(true)
   return (
     <>
       <Image
         src={"/portfolio" + props.src}
         width={900}
         height={900}
-        loading="lazy"
-        onLoadingComplete={() => setIsLoading(false)}
         alt="Демонстрация проекта не загрузилась :("
         className={st.projectImgIn}
+        priority
       />
-      {/* {isLoading ? (
-        <div className={st.projectImgLoading}>Загружаюсь...</div>
-      ) : (
-        <></>
-      )} */}
     </>
   )
 })
@@ -93,7 +86,7 @@ export default function Project(props: propsType): JSX.Element {
     changedByClick.current = true
   }
   return (
-    <div className={st.project} style={{ display: props.using ? "" : "none" }}>
+    <div className={st.project} style={{ display: props.using ? " " : "none" }}>
       <div className={st.projectText}>
         <div className={st.projectTextHead}>{props.headText}</div>
         <div className={st.projectTextDesc}>{props.descText}</div>

@@ -12,7 +12,7 @@ const projectInfo = [
   },
   {
     headText: `Новостной сайт`,
-    descText: `Сайт написан на React js, присутствует админ панель для написания и редактирования статей`,
+    descText: `Сайт написан на React js + Node js(Express js), присутствует админ панель для написания и редактирования статей`,
     imgSources: ["/news/1.png", "/news/2.png", "/news/3.png"],
   },
 ]

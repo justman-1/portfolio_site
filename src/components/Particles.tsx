@@ -34,8 +34,6 @@ function particles(e: any) {
   setTimeout(() => {
     let newX: number = Math.min(Math.random() * 200 - 100 + x, wid)
     let newY: number = Math.random() * 200 - 100 + y
-    console.log(wid)
-    console.log(newX)
     div!.style.transition = "all 6s linear"
     div!.style.top = newY + "px"
     div!.style.left = newX + "px"
@@ -52,7 +50,6 @@ export default function Particles() {
     if (!loaded) {
       loaded = true
       wid = window.innerWidth - 20
-      console.log(wid)
       for (let i = 0; i < 80; ++i) {
         let div: HTMLDivElement = document.createElement("div")
         div.className = "point"
