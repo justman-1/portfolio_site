@@ -1,23 +1,15 @@
-@keyframes appearBody {
-  from {
-    opacity: 0;
-    background-color: white;
-  }
-  50% {
-    opacity: 0;
-    background-color: #030613;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 body {
-  background-color: #030613; /* #051127 */
+  /* background-color: #030613; */
+  background: linear-gradient(
+    #030613 40%,
+    #24324e 68%,
+    #455d89,
+    #6589c3,
+    #86b4fe
+  );
   color: white;
   overflow-y: scroll;
   overflow-x: hidden;
-  /*animation: app earBody 1.5s ease;*/
 }
 .point {
   position: absolute;

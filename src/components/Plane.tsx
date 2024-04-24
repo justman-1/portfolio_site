@@ -3,7 +3,6 @@ import st from "../styles/All.module.scss"
 import { useEffect, useRef } from "react"
 
 let currTopStart: number = 700
-let loaded: boolean = false
 let vec: boolean = false
 let prevScroll: number = 0
 let currTop: number = currTopStart
@@ -12,9 +11,10 @@ let startLeft: number = 0
 
 export default function Plane() {
   const plane = useRef<HTMLImageElement>(null)
+  const loaded = useRef<boolean>(false)
   useEffect(() => {
-    if (!loaded) {
-      loaded = true
+    if (!loaded.current) {
+      loaded.current = true
       currTopStart = (window.innerHeight - 50) * 0.5
       startLeft = window.innerWidth < 1500 ? 0 : (window.innerWidth - 1500) / 2
       plane.current!.style.left = startLeft + "px"

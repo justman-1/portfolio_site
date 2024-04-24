@@ -1,4 +1,5 @@
-import st from "../styles/All.module.scss"
+import st from "../styles/Projects.module.scss"
+import stAll from "../styles/All.module.scss"
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 import Project from "./Project"
@@ -14,6 +15,11 @@ const projectInfo = [
     headText: `Новостной сайт`,
     descText: `Сайт написан на React js + Node js(Express js), присутствует админ панель для написания и редактирования статей`,
     imgSources: ["/news/1.png", "/news/2.png", "/news/3.png"],
+  },
+  {
+    headText: `watch all`,
+    descText: ``,
+    imgSources: [],
   },
 ]
 
@@ -41,7 +47,7 @@ export default function Portfolio() {
   }
   return (
     <>
-      <h1 className={st.partHead}>Мои проекты</h1>
+      <h1 className={stAll.partHead}>Мои проекты</h1>
       <div className={st.arrows}>
         <Image
           className={st.projectArrow1}

@@ -1,0 +1,203 @@
+.arrows {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 4vw;
+  .projectArrow1 {
+    filter: invert(1);
+    width: 40px;
+    height: auto;
+    transform: rotateZ(180deg);
+    cursor: pointer;
+  }
+  .projectArrow2 {
+    filter: invert(1);
+    width: 40px;
+    height: auto;
+    cursor: pointer;
+  }
+}
+.projects {
+  transition: all 0.35s ease;
+  .project {
+    display: flex;
+    margin-top: 1vw;
+    justify-content: space-between;
+    height: 450px;
+    @media (max-width: 1400px) {
+      height: 28vw;
+    }
+    @media (max-width: 900px) {
+      display: block;
+      height: 85vw;
+    }
+    .projectText {
+      width: 37%;
+      @media (max-width: 900px) {
+        width: 100%;
+        margin-bottom: 4vw;
+      }
+      .projectTextHead {
+        margin-top: 2.5vw;
+        font-size: 2.1em;
+        @media (max-width: 1500px) {
+          font-size: 2.3vw;
+        }
+        @media (max-width: 900px) {
+          font-size: 5vw;
+          text-align: center;
+        }
+      }
+      .projectTextDesc {
+        margin-top: 2.5vw;
+        font-size: 1.3em;
+        @media (max-width: 1500px) {
+          font-size: 1.5vw;
+        }
+        @media (max-width: 900px) {
+          display: none;
+        }
+      }
+    }
+    .projectImages {
+      width: 55%;
+      z-index: 0;
+      overflow: hidden;
+      height: 395px;
+      @media (max-width: 1400px) {
+        height: 25vw;
+      }
+      @media (max-width: 900px) {
+        width: 100%;
+        height: 43vw;
+      }
+      .projectImgsFlex {
+        width: 300%;
+        position: relative;
+        display: flex;
+        transition: all 1s ease;
+        height: 100%;
+        .projectImg {
+          display: contents;
+          width: 100%;
+          height: 100%;
+          z-index: 0;
+          transition: all 1s ease;
+          &:first-child {
+            margin-left: -100%;
+            animation: imgToRight 1s ease;
+          }
+          .projectImgIn {
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            line-height: 100%;
+          }
+          .projectImgLoading {
+            display: block;
+            width: 100%;
+            position: relative;
+            top: 50%;
+          }
+        }
+      }
+      .photoArrows {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 0px;
+        margin-top: -31%;
+        z-index: 100;
+        .photoToggle {
+          background-color: white;
+          width: 1.4em;
+          height: 1.4em;
+          filter: invert(1);
+          padding: 10px;
+          border-radius: 100px;
+          opacity: 0.2;
+          transition: all 0.2s ease;
+          cursor: pointer;
+          &:hover {
+            opacity: 1;
+          }
+          @media (max-width: 1500px) {
+            width: 2vw;
+            height: 2vw;
+          }
+        }
+        .arr1 {
+          margin: 0px 0.5vw;
+          transform: rotateZ(180deg);
+        }
+        .arr2 {
+          margin: 0px 0.5vw;
+        }
+      }
+      .photoLine {
+        width: 0%;
+        margin-left: 2.5%;
+        height: 3px;
+        border-radius: 7px;
+        background-color: #4bd1e7;
+        z-index: 100;
+        position: relative;
+        top: -12px;
+        opacity: 0.5;
+        transition: all 7s linear;
+      }
+    }
+    .projectTextDescMob {
+      display: none;
+      font-size: 4vw;
+      margin-top: 3.5vw;
+      text-align: center;
+      @media (max-width: 900px) {
+        display: block;
+      }
+    }
+
+    .projectSeeAllButton {
+      width: 400px;
+      height: 150px;
+      position: relative;
+      margin: 70px auto;
+      display: flex;
+      justify-content: center;
+      vertical-align: middle;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(45deg, #24324e, #455d89);
+      border-radius: 12px;
+      font-size: 1.8em;
+      cursor: pointer;
+      transition: all 0.7s linear;
+      @media (max-width: 900px) {
+        top: 25vw;
+        font-size: 3.7vw;
+        width: 50vw;
+        height: 14vw;
+        margin-top: 2vw;
+        border-radius: 1.8vw;
+      }
+      .projectSeeAllButtonText {
+        transition: all 0.7s linear;
+        width: 50%;
+        line-height: 100%;
+      }
+      .projectSeeAllButtonImg {
+        transition: all 0.7s linear;
+        filter: brightness(100);
+        width: 100px;
+        height: 100px;
+        margin-left: 20px;
+        @media (max-width: 900px) {
+          width: 13vw;
+          height: auto;
+          margin-left: 0px;
+        }
+      }
+    }
+  }
+}

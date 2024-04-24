@@ -11,6 +11,7 @@ const About = dynamic(() => import("../components/About"), {
 })
 const Skills = dynamic(() => import("../components/Skills"))
 const Portfolio = dynamic(() => import("../components/Portfolio"))
+const ForYou = dynamic(() => import("../components/ForYou"))
 
 export default function Home() {
   const dispatch = useAppDispatch()
@@ -23,6 +24,7 @@ export default function Home() {
   const aboutRef = useRef<HTMLDivElement>(null)
   const skillsRef = useRef<HTMLDivElement>(null)
   const portfolioRef = useRef<HTMLDivElement>(null)
+  const forYouRef = useRef<HTMLDivElement>(null)
   function loadSave(): boolean {
     if (loaded.current) return true
     loaded.current = true
@@ -58,13 +60,6 @@ export default function Home() {
   }, [portfolioScroll])
   return (
     <>
-      {/* <Image
-        src="/back1.jpg"
-        width={1700}
-        height={1700}
-        alt=""
-        className={st.back1}
-      /> */}
       <Main />
       <Plane />
       <Particles />
@@ -77,6 +72,9 @@ export default function Home() {
         </div>
         <div ref={portfolioRef}>
           <Portfolio />
+        </div>
+        <div ref={forYouRef}>
+          <ForYou />
         </div>
       </div>
     </>

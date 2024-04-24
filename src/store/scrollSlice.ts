@@ -17,7 +17,6 @@ const scrollSlice = createSlice({
         val: boolean
       }>
     ) {
-      console.log(action.payload)
       state[action.payload.part] = action.payload.val
     },
   },

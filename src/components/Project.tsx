@@ -1,6 +1,6 @@
 import Image from "next/image"
 import { memo, useEffect, useRef, useState } from "react"
-import st from "../styles/All.module.scss"
+import st from "../styles/Projects.module.scss"
 
 interface propsType {
   headText: string
@@ -86,46 +86,79 @@ export default function Project(props: propsType): JSX.Element {
     changedByClick.current = true
   }
   return (
-    <div className={st.project} style={{ display: props.using ? " " : "none" }}>
-      <div className={st.projectText}>
-        <div className={st.projectTextHead}>{props.headText}</div>
-        <div className={st.projectTextDesc}>{props.descText}</div>
-      </div>
-      <div className={st.projectImages}>
-        <div
-          className={st.projectImgsFlex}
-          ref={imgsRef}
-          style={{ left: -100 * imgCurr + "%" }}
-        >
-          {imgSources.map((src, i) => {
-            return (
-              <div className={st.projectImg} key={i}>
-                <ImgMemo src={src} />
+    <>
+      <div
+        className={st.project}
+        style={{ display: props.using ? " " : "none" }}
+      >
+        {props.imgSources.length ? (
+          <>
+            <div
+              className={st.projectText}
+              style={{
+                display: props.imgSources.length ? " " : "none",
+              }}
+            >
+              <div className={st.projectTextHead}>{props.headText}</div>
+              <div className={st.projectTextDesc}>{props.descText}</div>
+            </div>
+            <div
+              className={st.projectImages}
+              style={{
+                display: props.imgSources.length ? " " : "none",
+              }}
+            >
+              <div
+                className={st.projectImgsFlex}
+                ref={imgsRef}
+                style={{ left: -100 * imgCurr + "%" }}
+              >
+                {imgSources.map((src, i) => {
+                  return (
+                    <div className={st.projectImg} key={i}>
+                      <ImgMemo src={src} />
+                    </div>
+                  )
+                })}
               </div>
-            )
-          })}
-        </div>
-        <div className={st.photoLine} ref={line}></div>
-        <div className={st.photoArrows}>
-          <Image
-            src="/arrow2.png"
-            width={40}
-            height={40}
-            alt=""
-            className={`${st.photoToggle} ${st.arr1}`}
-            onClick={() => changeImgEvent(false)}
-          />
-          <Image
-            src="/arrow2.png"
-            width={40}
-            height={40}
-            alt=""
-            className={`${st.photoToggle} ${st.arr2}`}
-            onClick={() => changeImgEvent(true)}
-          />
-        </div>
+              <div className={st.photoLine} ref={line}></div>
+              <div className={st.photoArrows}>
+                <Image
+                  src="/arrow2.png"
+                  width={40}
+                  height={40}
+                  alt=""
+                  className={`${st.photoToggle} ${st.arr1}`}
+                  onClick={() => changeImgEvent(false)}
+                />
+                <Image
+                  src="/arrow2.png"
+                  width={40}
+                  height={40}
+                  alt=""
+                  className={`${st.photoToggle} ${st.arr2}`}
+                  onClick={() => changeImgEvent(true)}
+                />
+              </div>
+            </div>
+            <div className={st.projectTextDescMob}>{props.descText}</div>
+          </>
+        ) : (
+          <div className={st.projectSeeAllButton}>
+            <div className={st.projectSeeAllButtonText}>
+              Просмотреть все проекты
+            </div>
+            <Image
+              src="/gallery.svg"
+              width={150}
+              height={150}
+              alt=""
+              className={st.projectSeeAllButtonImg}
+              priority
+            />
+          </div>
+        )}
       </div>
-      <div className={st.projectTextDescMob}>{props.descText}</div>
-    </div>
+    </>
   )
 }

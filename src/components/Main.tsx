@@ -8,7 +8,6 @@ import { useAppDispatch } from "../store/hook.ts"
 const interval1: number = 80
 const interval2: number = 20
 const letterInterval: number = 100
-let loaded: boolean = false
 
 let skills: string[] = [
   "TYPESCRIPT",
@@ -36,6 +35,7 @@ let baseLetter = {
 
 export default function Main() {
   const dispatch = useAppDispatch()
+  const loaded = useRef<boolean>(false)
   const [text1, setText1] = useState<string>("")
   const [text2, setText2] = useState<string>("")
   const [text3, setText3] = useState<string>("")
@@ -67,8 +67,8 @@ export default function Main() {
     }, interval2 * s3.length + 100)
   }
   useEffect(() => {
-    if (!loaded) {
-      loaded = true
+    if (!loaded.current) {
+      loaded.current = true
       let wid: number = lettersRef.current!.clientWidth
       let colvo: number =
         window.innerWidth < 600 ? Math.floor(wid / 40) : Math.floor(wid / 50)

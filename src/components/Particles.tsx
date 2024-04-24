@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 
 interface Stack {
   to: Stack | null
@@ -15,6 +15,7 @@ function stackGet(): HTMLDivElement | null {
 
 let loaded: boolean = false
 let wid: number = 0
+let height: number = 0
 let stack: Stack = { to: null, div: null }
 
 let canAddPoint: boolean = true
@@ -33,7 +34,7 @@ function particles(e: any) {
   div!.style.left = x + "px"
   setTimeout(() => {
     let newX: number = Math.min(Math.random() * 200 - 100 + x, wid)
-    let newY: number = Math.random() * 200 - 100 + y
+    let newY: number = Math.min(Math.random() * 200 - 100 + y, height)
     div!.style.transition = "all 6s linear"
     div!.style.top = newY + "px"
     div!.style.left = newX + "px"
@@ -46,10 +47,12 @@ function particles(e: any) {
 }
 
 export default function Particles() {
+  const loaded = useRef<boolean>(false)
   useEffect(() => {
-    if (!loaded) {
-      loaded = true
+    if (!loaded.current) {
+      loaded.current = true
       wid = window.innerWidth - 20
+      height = document.body.clientHeight
       for (let i = 0; i < 80; ++i) {
         let div: HTMLDivElement = document.createElement("div")
         div.className = "point"

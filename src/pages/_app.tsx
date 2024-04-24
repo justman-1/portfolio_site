@@ -1,7 +1,6 @@
 import "@/styles/globals.css"
 import type { AppProps } from "next/app"
 import { Manrope, Oxygen } from "next/font/google"
-import { useState, useEffect, useMemo } from "react"
 import { Provider } from "react-redux"
 import { store } from "../store/index.ts"
 
