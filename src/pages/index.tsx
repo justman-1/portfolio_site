@@ -5,13 +5,20 @@ import Main from "../components/Main"
 import { useRef, useEffect } from "react"
 import { useAppSelector, useAppDispatch } from "@/store/hook"
 import { scroll } from "@/store/scrollSlice"
-const Particles = dynamic(() => import("../components/Particles"))
-const About = dynamic(() => import("../components/About"), {
+import Particles from "../components/Particles"
+import About from "../components/About"
+const Skills = dynamic(() => import("../components/Skills"), {
+  ssr: false,
   loading: () => <div className={st.loadingText}>Загружаюсь...</div>,
 })
-const Skills = dynamic(() => import("../components/Skills"))
-const Portfolio = dynamic(() => import("../components/Portfolio"))
-const ForYou = dynamic(() => import("../components/ForYou"))
+const Portfolio = dynamic(() => import("../components/Portfolio"), {
+  ssr: false,
+  loading: () => <div className={st.loadingText}>Загружаюсь...</div>,
+})
+const ForYou = dynamic(() => import("../components/ForYou"), {
+  ssr: false,
+  loading: () => <div className={st.loadingText}>Загружаюсь...</div>,
+})
 
 export default function Home() {
   const dispatch = useAppDispatch()
