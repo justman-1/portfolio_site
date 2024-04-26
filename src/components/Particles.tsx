@@ -13,9 +13,8 @@ function stackGet(): HTMLDivElement | null {
   return ans
 }
 
-let loaded: boolean = false
 let wid: number = 0
-let height: number = 0
+let height: number = 1500
 let stack: Stack = { to: null, div: null }
 
 let canAddPoint: boolean = true
@@ -52,7 +51,17 @@ export default function Particles() {
     if (!loaded.current) {
       loaded.current = true
       wid = window.innerWidth - 20
-      height = document.body.clientHeight
+      let heightInd: number = 0
+      let heightFixInterval = setInterval(() => {
+        if (document.body.clientHeight - 600 != height) {
+          heightInd = 0
+          height = document.body.clientHeight - 600
+        } else {
+          heightInd++
+          if (heightInd > 20) clearInterval(heightFixInterval)
+        }
+        height = Math.max(height, 1500)
+      }, 2000)
       for (let i = 0; i < 80; ++i) {
         let div: HTMLDivElement = document.createElement("div")
         div.className = "point"

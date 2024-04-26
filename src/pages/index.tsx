@@ -46,6 +46,10 @@ export default function Home() {
   }, [allAppear])
   useEffect(() => {
     if (!loadSave()) return
+    window.scrollBy({ top: 0 })
+  }, [])
+  useEffect(() => {
+    if (!loadSave()) return
     if (aboutScroll) {
       scrollTo(aboutRef.current!)
       dispatch(scroll({ part: "about", val: false }))
