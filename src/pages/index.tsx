@@ -27,6 +27,7 @@ const Contacts = dynamic(() => import("../components/Contacts"), {
 export default function Home() {
   const dispatch = useAppDispatch()
   const loaded = useRef<boolean>(false)
+  const windowLoaded = useRef<boolean>(false)
   const allAppear = useAppSelector((state) => state.load.all)
   const aboutScroll = useAppSelector((state) => state.scroll.about)
   const skillsScroll = useAppSelector((state) => state.scroll.skills)
@@ -49,11 +50,24 @@ export default function Home() {
     window.scrollBy({ top: y, behavior: "smooth" })
   }
   useEffect(() => {
-    if (allAppear) allRef.current!.style.opacity = "1"
+    if (allAppear) {
+      allRef.current!.style.opacity = "1"
+      document.body.style.overflowY = "scroll"
+    }
   }, [allAppear])
   useEffect(() => {
-    if (!loadSave()) return
-    window.scrollBy({ top: 0 })
+    if (!windowLoaded.current) {
+      windowLoaded.current = true
+      //scroll disable
+      for (let i = 0; i < 70; ++i) {
+        setTimeout(() => {
+          window.scrollBy({ top: -100000 })
+        }, i * 100)
+      }
+      setTimeout(() => {
+        document.body.style.overflowY = "hidden"
+      }, 10)
+    }
   }, [])
   useEffect(() => {
     if (!loadSave()) return

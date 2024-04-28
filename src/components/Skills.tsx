@@ -35,7 +35,7 @@ let info: [string, [string, string][]][] = [
 export default function Skills() {
   return (
     <>
-      <h1 className={st.partHead}>Используемый стек технологий</h1>
+      <h1 className={st.partHead}>Основной стек используемых технологий</h1>
       <div className={st.stackList}>
         {info.map((e1, key1) => {
           return (

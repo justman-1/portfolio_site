@@ -69,11 +69,6 @@ export default function Particles() {
         stackAdd(div)
       }
       window.onmousemove = particles
-      window.scrollTo(0, 0)
-      setTimeout(() => (document.body.style.overflowY = "hidden"), 10)
-      setTimeout(() => {
-        document.body.style.overflowY = "scroll"
-      }, 8200)
     }
   }, [])
   return <></>
