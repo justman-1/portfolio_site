@@ -56,6 +56,7 @@ export default function Portfolio() {
           height={80}
           alt="arrow"
           onClick={() => toggleProject(false)}
+          priority
         />
         <Image
           className={st.projectArrow2}
@@ -64,6 +65,7 @@ export default function Portfolio() {
           height={80}
           alt="arrow"
           onClick={() => toggleProject(true)}
+          priority
         />
       </div>
       <div className={st.projects} ref={projects}>

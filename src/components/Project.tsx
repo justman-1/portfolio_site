@@ -130,6 +130,7 @@ export default function Project(props: propsType): JSX.Element {
                   alt=""
                   className={`${st.photoToggle} ${st.arr1}`}
                   onClick={() => changeImgEvent(false)}
+                  priority
                 />
                 <Image
                   src="/arrow2.png"
@@ -138,6 +139,7 @@ export default function Project(props: propsType): JSX.Element {
                   alt=""
                   className={`${st.photoToggle} ${st.arr2}`}
                   onClick={() => changeImgEvent(true)}
+                  priority
                 />
               </div>
             </div>
