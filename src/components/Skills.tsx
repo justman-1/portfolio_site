@@ -43,7 +43,13 @@ export default function Skills() {
               <h2 className={st.stackPartHead}>{e1[0]}</h2>
               {e1[1].map((e, key) => (
                 <div className={st.stackPartText} key={key}>
-                  <Image src={"/icons/" + e[1]} width={30} height={30} alt="" />
+                  <Image
+                    src={"/icons/" + e[1]}
+                    width={30}
+                    height={30}
+                    alt=""
+                    priority
+                  />
                   {e[0]}
                 </div>
               ))}
