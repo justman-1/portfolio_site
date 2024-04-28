@@ -1,54 +1,55 @@
 import st from "../styles/All.module.scss"
+import Image from "next/image"
 
-let frontendSkills: string[] = [
-  "HTML",
-  "CSS",
-  "JavaScript",
-  "React JS",
-  "Next JS",
-  "Redux Toolkit",
-  "Sass",
-  "Material UI",
+let frontendSkills: [string, string][] = [
+  ["HTML", "html.png"],
+  ["CSS", "css.png"],
+  ["JavaScript", "js.png"],
+  ["React JS", "reactjs.png"],
+  ["Next JS", "nextjs.png"],
+  ["Redux Toolkit", "rtk.png"],
+  ["Sass", "sass.png"],
+  ["Material UI", "materialui.png"],
 ]
-let backendSkills: string[] = [
-  "Node JS",
-  "Express JS",
-  "MySQL",
-  "MongoDB",
-  "Node-cache",
-  "Redis",
+let backendSkills: [string, string][] = [
+  ["Node JS", "nodejs.png"],
+  ["Express JS", "express.png"],
+  ["MySQL", "mysql.png"],
+  ["MongoDB", "mongo.png"],
+  ["Node-cache", "nodecache.png"],
+  ["Redis", "redis.png"],
 ]
-let additionalSkills: string[] = ["TypeScript", "GIT", "Docker", "JWT"]
+let additionalSkills: [string, string][] = [
+  ["TypeScript", "ts.png"],
+  ["GIT", "git.png"],
+  ["Docker", "docker.png"],
+  ["JWT", "jwt.png"],
+]
+
+let info: [string, [string, string][]][] = [
+  ["FRONTEND", frontendSkills],
+  ["BACKEND", backendSkills],
+  ["А ТАКЖЕ", additionalSkills],
+]
 
 export default function Skills() {
   return (
     <>
       <h1 className={st.partHead}>Используемый стек технологий</h1>
       <div className={st.stackList}>
-        <div className={st.stackPart}>
-          <h2 className={st.stackPartHead}>FRONTEND</h2>
-          {frontendSkills.map((e, key) => (
-            <li className={st.stackPartText} key={key}>
-              {e}
-            </li>
-          ))}
-        </div>
-        <div className={st.stackPart}>
-          <h2 className={st.stackPartHead}>BACKEND</h2>
-          {backendSkills.map((e, key) => (
-            <li className={st.stackPartText} key={key}>
-              {e}
-            </li>
-          ))}
-        </div>
-        <div className={st.stackPart}>
-          <h2 className={st.stackPartHead}>А ТАКЖЕ</h2>
-          {additionalSkills.map((e, key) => (
-            <li className={st.stackPartText} key={key}>
-              {e}
-            </li>
-          ))}
-        </div>
+        {info.map((e1, key1) => {
+          return (
+            <div className={st.stackPart}>
+              <h2 className={st.stackPartHead}>{e1[0]}</h2>
+              {e1[1].map((e, key) => (
+                <div className={st.stackPartText} key={key}>
+                  <Image src={"/icons/" + e[1]} width={30} height={30} alt="" />
+                  {e[0]}
+                </div>
+              ))}
+            </div>
+          )
+        })}
       </div>
     </>
   )

@@ -19,6 +19,10 @@ const ForYou = dynamic(() => import("../components/ForYou"), {
   ssr: false,
   loading: () => <div className={st.loadingText}>Загружаюсь...</div>,
 })
+const Contacts = dynamic(() => import("../components/Contacts"), {
+  ssr: false,
+  loading: () => <div className={st.loadingText}>Загружаюсь...</div>,
+})
 
 export default function Home() {
   const dispatch = useAppDispatch()
@@ -27,11 +31,14 @@ export default function Home() {
   const aboutScroll = useAppSelector((state) => state.scroll.about)
   const skillsScroll = useAppSelector((state) => state.scroll.skills)
   const portfolioScroll = useAppSelector((state) => state.scroll.portfolio)
+  const forYouScroll = useAppSelector((state) => state.scroll.forYou)
+  const contactsScroll = useAppSelector((state) => state.scroll.contacts)
   const allRef = useRef<HTMLDivElement>(null)
   const aboutRef = useRef<HTMLDivElement>(null)
   const skillsRef = useRef<HTMLDivElement>(null)
   const portfolioRef = useRef<HTMLDivElement>(null)
   const forYouRef = useRef<HTMLDivElement>(null)
+  const contactsRef = useRef<HTMLDivElement>(null)
   function loadSave(): boolean {
     if (loaded.current) return true
     loaded.current = true
@@ -69,6 +76,20 @@ export default function Home() {
       dispatch(scroll({ part: "portfolio", val: false }))
     }
   }, [portfolioScroll])
+  useEffect(() => {
+    if (!loadSave()) return
+    if (forYouScroll) {
+      scrollTo(forYouRef.current!)
+      dispatch(scroll({ part: "forYou", val: false }))
+    }
+  }, [forYouScroll])
+  useEffect(() => {
+    if (!loadSave()) return
+    if (contactsScroll) {
+      scrollTo(contactsRef.current!)
+      dispatch(scroll({ part: "contacts", val: false }))
+    }
+  }, [contactsScroll])
   return (
     <>
       <Main />
@@ -86,6 +107,9 @@ export default function Home() {
         </div>
         <div ref={forYouRef}>
           <ForYou />
+        </div>
+        <div ref={contactsRef}>
+          <Contacts />
         </div>
       </div>
     </>
