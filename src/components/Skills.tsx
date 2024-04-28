@@ -45,8 +45,9 @@ export default function Skills() {
                 <div className={st.stackPartText} key={key}>
                   <Image
                     src={"/icons/" + e[1]}
-                    width={30}
-                    height={30}
+                    width={60}
+                    height={60}
+                    style={{ width: "30px", height: "30px" }}
                     alt=""
                     priority
                   />
