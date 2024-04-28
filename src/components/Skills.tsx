@@ -39,7 +39,7 @@ export default function Skills() {
       <div className={st.stackList}>
         {info.map((e1, key1) => {
           return (
-            <div className={st.stackPart}>
+            <div className={st.stackPart} key={key1}>
               <h2 className={st.stackPartHead}>{e1[0]}</h2>
               {e1[1].map((e, key) => (
                 <div className={st.stackPartText} key={key}>
