@@ -46,7 +46,7 @@ export default function Home() {
     return false
   }
   function scrollTo(elem: HTMLDivElement) {
-    let y: number = elem.offsetTop - 50
+    let y: number = elem.offsetTop - window.scrollY - 50
     window.scrollBy({ top: y, behavior: "smooth" })
   }
   useEffect(() => {
@@ -87,6 +87,7 @@ export default function Home() {
     if (!loadSave()) return
     if (portfolioScroll) {
       scrollTo(portfolioRef.current!)
+      console.log("portfolio")
       dispatch(scroll({ part: "portfolio", val: false }))
     }
   }, [portfolioScroll])

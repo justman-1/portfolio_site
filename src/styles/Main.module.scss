@@ -64,7 +64,7 @@
     align-items: center;
     justify-content: right;
     width: 100%;
-    margin-top: 10vh;
+    margin-top: 8vh;
     transition: all 1s ease-out;
     @media (max-width: 1350px) {
       font-size: 1.3vw;
@@ -106,7 +106,7 @@
     }
   }
   .dev1 {
-    margin-top: 3vh;
+    margin-top: 1vh;
     margin-left: 1em;
     height: 1.3em;
     font-size: 4.5em;
@@ -114,6 +114,7 @@
       font-size: 5vw;
     }
     @media (max-width: 800px) {
+      margin-top: 2vh;
       font-size: 7vw;
     }
   }
