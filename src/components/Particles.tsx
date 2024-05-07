@@ -15,6 +15,7 @@ function stackGet(): HTMLDivElement | null {
 
 let wid: number = 0
 let height: number = 1500
+const gap: number = 900
 let stack: Stack = { to: null, div: null }
 
 let canAddPoint: boolean = true
@@ -53,9 +54,9 @@ export default function Particles() {
       wid = window.innerWidth - 20
       let heightInd: number = 0
       let heightFixInterval = setInterval(() => {
-        if (document.body.clientHeight - 600 != height) {
+        if (document.body.clientHeight - gap != height) {
           heightInd = 0
-          height = document.body.clientHeight - 600
+          height = document.body.clientHeight - gap
         } else {
           heightInd++
           if (heightInd > 20) clearInterval(heightFixInterval)

@@ -1,9 +1,12 @@
+import { Tenor_Sans } from "next/font/google"
 import Image from "next/image"
 import st from "../styles/Main.module.scss"
 import { useEffect, useRef, useState } from "react"
 import { scroll } from "../store/scrollSlice"
 import { load } from "../store/loadSlice.ts"
 import { useAppDispatch } from "../store/hook.ts"
+
+const inter = Tenor_Sans({ subsets: ["latin"], weight: "400" })
 
 const interval1: number = 80
 const interval2: number = 20
@@ -29,8 +32,8 @@ for (let i = 0; i < skills.length; ++i) skillState.push(0)
 let minSkillState: number = 0
 let minSkillStateOst: number = skills.length
 let baseLetter = {
-  height: "50px",
-  fontSize: "2.1em",
+  height: "47px",
+  fontSize: "2.2em",
 }
 
 export default function Main() {
@@ -65,6 +68,11 @@ export default function Main() {
         setTimeout(() => dispatch(load(true)), 200)
       }, 200)
     }, interval2 * s3.length + 100)
+  }
+  function goLink(
+    linkStr: "about" | "skills" | "portfolio" | "forYou" | "contacts"
+  ) {
+    dispatch(scroll({ val: true, part: linkStr }))
   }
   useEffect(() => {
     if (!loaded.current) {
@@ -156,13 +164,15 @@ export default function Main() {
   }, [letState])
   return (
     <>
-      <header className={st.header}>Roman Malneu</header>
+      <header className={st.header + " " + inter.className}>
+        Roman Malneu
+      </header>
       <div className={st.container}>
         <nav className={st.links} ref={linksDiv}>
           <div
             className={st.item}
             onClick={() => {
-              dispatch(scroll({ val: true, part: "about" }))
+              goLink("about")
             }}
           >
             Я
@@ -170,7 +180,7 @@ export default function Main() {
           <div
             className={st.item}
             onClick={() => {
-              dispatch(scroll({ val: true, part: "skills" }))
+              goLink("skills")
             }}
           >
             Навыки
@@ -178,7 +188,7 @@ export default function Main() {
           <div
             className={st.item}
             onClick={() => {
-              dispatch(scroll({ val: true, part: "portfolio" }))
+              goLink("portfolio")
             }}
           >
             Портфолио
@@ -186,7 +196,7 @@ export default function Main() {
           <div
             className={st.item}
             onClick={() => {
-              dispatch(scroll({ val: true, part: "contacts" }))
+              goLink("contacts")
             }}
           >
             Контакты
@@ -195,7 +205,7 @@ export default function Main() {
           <div
             className={st.item}
             onClick={() => {
-              dispatch(scroll({ val: true, part: "forYou" }))
+              goLink("forYou")
             }}
           >
             Для Вас
@@ -210,8 +220,8 @@ export default function Main() {
           <Image
             src="/computer_main.png"
             alt=""
-            width={1200}
-            height={1200}
+            width={800}
+            height={800}
             className={st.computer}
             ref={computer}
             priority

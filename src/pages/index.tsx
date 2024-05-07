@@ -7,6 +7,7 @@ import { useAppSelector, useAppDispatch } from "@/store/hook"
 import { scroll } from "@/store/scrollSlice"
 import Particles from "../components/Particles"
 import About from "../components/About"
+import Footer from "../components/Footer"
 const Skills = dynamic(() => import("../components/Skills"), {
   ssr: false,
   loading: () => <div className={st.loadingText}>Загружаюсь...</div>,
@@ -127,6 +128,7 @@ export default function Home() {
           <Contacts />
         </div>
       </div>
+      <Footer />
     </>
   )
 }
