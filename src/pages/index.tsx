@@ -2,7 +2,7 @@ import dynamic from "next/dynamic"
 import st from "../styles/Index.module.scss"
 import Plane from "../components/Plane"
 import Main from "../components/Main"
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
 import { useAppSelector, useAppDispatch } from "@/store/hook"
 import { scroll } from "@/store/scrollSlice"
 import Particles from "../components/Particles"
@@ -41,6 +41,7 @@ export default function Home() {
   const portfolioRef = useRef<HTMLDivElement>(null)
   const forYouRef = useRef<HTMLDivElement>(null)
   const contactsRef = useRef<HTMLDivElement>(null)
+
   function loadSave(): boolean {
     if (loaded.current) return true
     loaded.current = true
@@ -50,6 +51,7 @@ export default function Home() {
     let y: number = elem.offsetTop - window.scrollY - 50
     window.scrollBy({ top: y, behavior: "smooth" })
   }
+
   useEffect(() => {
     if (allAppear) {
       allRef.current!.style.opacity = "1"

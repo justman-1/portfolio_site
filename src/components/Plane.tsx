@@ -1,6 +1,7 @@
 import Image from "next/image"
 import st from "../styles/All.module.scss"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
+import { useAppSelector } from "@/store/hook"
 
 function isDeviceMobileTest(): boolean {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
@@ -33,6 +34,14 @@ export default function Plane() {
   let startLeft: number = 0
   const plane = useRef<HTMLImageElement>(null)
   const loaded = useRef<boolean>(false)
+  const lineTopRedux = useAppSelector((state) => state.lineTop.top)
+  const [lineTop, setLineTop] = useState<number>(0)
+
+  useEffect(() => {
+    /* console.log("top: " + lineTop) */
+    setLineTop(lineTopRedux)
+  }, [lineTopRedux])
+
   function reversePlane(toBottom: boolean): number {
     let interval: number = 0
     if (toBottom && vec) {
@@ -70,13 +79,21 @@ export default function Plane() {
     }, interval)
   }
   function planeLand() {
+    let needTop: number = -1
+    //get needTop:
+    setLineTop((lineTop1) => {
+      needTop = lineTop1 + (isDeviceMobileTest() ? 3 : 0)
+      return lineTop1
+    })
+    console.log(needTop)
+    console.log("linetop: " + lineTop)
+    console.log("scrolly: " + window.scrollY)
     isPlaneEnd = true
     let interval = reversePlane(true) + 20
     setTimeout(() => {
-      let ost: number =
-        document.body.scrollHeight +
-        (window.innerWidth > 600 ? 6.5 : -16) -
-        currTop
+      let ost: number = needTop - currTop
+      let ostLeft: number = 75 - (startLeft / window.innerWidth) * 100
+      console.log("ostleft: " + ostLeft)
       plane.current!.style.transition = "all 0.35s linear"
       let wasTime: number = 0
       let j: number = 10
@@ -86,7 +103,9 @@ export default function Plane() {
         let wasTop: number = parseInt(plane.current!.style.top)
         let newTop: number = currTop + ost * funcTop(K)
         let wasLeft: number = parseInt(plane.current!.style.left)
-        let newLeft: number = funcLeft(K, isDeviceMobileTest()) * 75
+        let newLeft: number =
+          (startLeft / window.innerWidth) * 100 +
+          funcLeft(K, isDeviceMobileTest()) * ostLeft
         let newDeg: number = 270 - funcTop(K) * 90
         let dist = Math.sqrt(
           Math.pow(newTop - wasTop, 2) + Math.pow(wasLeft - newLeft, 2)
@@ -110,15 +129,13 @@ export default function Plane() {
       }
       setTimeout(() => {
         plane.current!.style.transition = "all 0.8s ease-out"
-        plane.current!.style.top =
-          document.body.scrollHeight +
-          (window.innerWidth > 600 ? 6.5 : -16) +
-          "px"
+        plane.current!.style.top = needTop + "px"
         plane.current!.style.left = "75%"
         plane.current!.style.transform = `rotateZ(180deg)`
       }, wasTime + 100)
     }, interval)
   }
+
   useEffect(() => {
     if (!loaded.current) {
       loaded.current = true
@@ -126,6 +143,7 @@ export default function Plane() {
       startLeft = window.innerWidth < 1500 ? 0 : (window.innerWidth - 1500) / 2
       plane.current!.style.left = startLeft + "px"
       setTimeout(() => {
+        if (!plane.current) return
         plane.current!.style.top = currTopStart + "px"
         window.onscroll = (e) => {
           if (isPlaneEnd) return
@@ -152,6 +170,7 @@ export default function Plane() {
       }, 8100)
     }
   }, [])
+
   return (
     <>
       <Image

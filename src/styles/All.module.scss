@@ -116,6 +116,8 @@
   }
 }
 
+$contacts-mobile_width: 850px;
+
 .contactsForm {
   height: 600px;
   width: 100%;
@@ -126,7 +128,7 @@
     height: 55vw;
     font-size: 2.9vw;
   }
-  @media (max-width: 700px) {
+  @media (max-width: $contacts-mobile_width) {
     height: 65vw;
     font-size: 4.5vw;
   }
@@ -139,7 +141,7 @@
     @media (max-width: 1100px) {
       width: 70vw;
     }
-    @media (max-width: 700px) {
+    @media (max-width: $contacts-mobile_width) {
       width: 85vw;
     }
   }
@@ -151,7 +153,7 @@
     @media (max-width: 1100px) {
       margin-top: 13vw;
     }
-    @media (max-width: 700px) {
+    @media (max-width: $contacts-mobile_width) {
       margin-top: 17vw;
     }
   }
@@ -170,7 +172,7 @@
     @media (max-width: 1100px) {
       margin-top: 7vw;
     }
-    @media (max-width: 700px) {
+    @media (max-width: $contacts-mobile_width) {
       margin-top: 4vw;
     }
     .contLinkImg {
@@ -184,7 +186,7 @@
       @media (max-width: 1100px) {
         width: 7vw;
       }
-      @media (max-width: 700px) {
+      @media (max-width: $contacts-mobile_width) {
         width: 9vw;
       }
     }
