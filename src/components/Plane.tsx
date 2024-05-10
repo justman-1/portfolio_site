@@ -4,9 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { useAppSelector } from "@/store/hook"
 
 function isDeviceMobileTest(): boolean {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
-    navigator.userAgent
-  )
+  return window.innerWidth <= 600
 }
 
 function funcTop(k: number): number {
@@ -38,7 +36,6 @@ export default function Plane() {
   const [lineTop, setLineTop] = useState<number>(0)
 
   useEffect(() => {
-    /* console.log("top: " + lineTop) */
     setLineTop(lineTopRedux)
   }, [lineTopRedux])
 
@@ -82,18 +79,14 @@ export default function Plane() {
     let needTop: number = -1
     //get needTop:
     setLineTop((lineTop1) => {
-      needTop = lineTop1 + (isDeviceMobileTest() ? 3 : 0)
+      needTop = lineTop1 + (isDeviceMobileTest() ? 4.5 : 0)
       return lineTop1
     })
-    console.log(needTop)
-    console.log("linetop: " + lineTop)
-    console.log("scrolly: " + window.scrollY)
     isPlaneEnd = true
     let interval = reversePlane(true) + 20
     setTimeout(() => {
       let ost: number = needTop - currTop
       let ostLeft: number = 75 - (startLeft / window.innerWidth) * 100
-      console.log("ostleft: " + ostLeft)
       plane.current!.style.transition = "all 0.35s linear"
       let wasTime: number = 0
       let j: number = 10
@@ -113,13 +106,6 @@ export default function Plane() {
         wasTime += dist / planeV(K)
         let t: number = wasTime
         setTimeout(() => {
-          /* console.log("")
-          console.log("K: " + K)
-          console.log("top: " + newTop)
-          console.log("v: " + planeV(K))
-          console.log("dist: " + dist)
-          console.log("time: " + t)
-          console.log("deg: " + (270 - K * 90)) */
           plane.current!.style.top = newTop + "px"
           plane.current!.style.left = newLeft + "%"
           plane.current!.style.transform = `rotateZ(${newDeg}deg)`

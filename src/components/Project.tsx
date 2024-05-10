@@ -37,6 +37,12 @@ export default function Project(props: propsType): JSX.Element {
   const changedByClick = useRef<boolean>(false)
   const [imgCurr, setImgCurr] = useState<number>(-1)
   const [imgSources, setImgSources] = useState<string[]>([])
+
+  function changeImgEvent(isRight: boolean) {
+    changeImg(isRight, true)
+    lineAnimation(false)
+    changedByClick.current = true
+  }
   function lineAnimation(on: boolean) {
     if (!line.current) return
     line.current.style.transition = on ? "all 7s linear" : "all 0s linear"
@@ -49,8 +55,9 @@ export default function Project(props: propsType): JSX.Element {
     imgsRef.current!.style.transition = `all ${isButton ? 0.5 : 1}s ease`
     setTimeout(() => (isImgChanging.current = false), isButton ? 100 : 800)
     if (toRight) return setImgCurr((prev) => (prev + 1) % imgSources.length)
-    setImgCurr((prev) => (prev - 1 >= 0 ? prev - 1 : imgSources.length - 1))
+    setImgCurr((prev) => (imgSources.length + prev - 1) % imgSources.length)
   }
+
   useEffect(() => {
     if (!loaded.current) {
       loaded.current = true
@@ -60,31 +67,35 @@ export default function Project(props: propsType): JSX.Element {
     }
   }, [])
   useEffect(() => {
-    if (changedByClick) {
+    if (!props.using) {
+      if (imgCurr != 0) setImgCurr(0)
+      return
+    }
+    if (changedByClick.current) {
+      console.log("by click")
       changedByClick.current = false
       let saveImgChangeI: number = changeImgI.current
       setTimeout(() => {
-        if (saveImgChangeI == changeImgI.current) setImgCurr((prev) => prev)
+        if (saveImgChangeI == changeImgI.current)
+          setImgCurr((prev) => (prev + 1) % imgSources.length)
       }, 10000)
       return
     }
     if (imgSources.length) {
-      lineAnimation(true)
-      changeImgI.current++
-      let saveImgChangeI: number = changeImgI.current
-      setTimeout(async () => {
-        lineAnimation(false)
-        if (saveImgChangeI == changeImgI.current) {
-          changeImg(true, false)
-        }
-      }, 7000)
+      console.log("line anim")
+      lineAnimation(false)
+      setTimeout(() => {
+        lineAnimation(true)
+        changeImgI.current++
+        let saveImgChangeI: number = changeImgI.current
+        setTimeout(async () => {
+          if (saveImgChangeI == changeImgI.current) {
+            setTimeout(() => changeImg(true, false), 30)
+          }
+        }, 7000)
+      }, 20)
     }
-  }, [imgCurr])
-  function changeImgEvent(isRight: boolean) {
-    changeImg(isRight, true)
-    lineAnimation(false)
-    changedByClick.current = true
-  }
+  }, [imgCurr, props.using])
   return (
     <>
       <div

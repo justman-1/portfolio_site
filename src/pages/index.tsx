@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic"
+import Head from "next/head"
 import st from "../styles/Index.module.scss"
 import Plane from "../components/Plane"
 import Main from "../components/Main"
@@ -90,7 +91,6 @@ export default function Home() {
     if (!loadSave()) return
     if (portfolioScroll) {
       scrollTo(portfolioRef.current!)
-      console.log("portfolio")
       dispatch(scroll({ part: "portfolio", val: false }))
     }
   }, [portfolioScroll])
@@ -110,6 +110,9 @@ export default function Home() {
   }, [contactsScroll])
   return (
     <>
+      <Head>
+        <title>Roman Malneu | Fullstack JavaScript Разработчик</title>
+      </Head>
       <Main />
       <Plane />
       <Particles />
