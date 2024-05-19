@@ -6,22 +6,21 @@ import { updateLineTopAction } from "@/store/lineTopSlice"
 export default function Footer() {
   const dispatch = useAppDispatch()
   const loaded = useRef<boolean>(false)
+  const planeLand = useAppSelector((state) => state.load.planeLand)
   const lineRef = useRef<HTMLDivElement>(null)
   const lineTop = useAppSelector((state) => state.lineTop.top)
   const [lineTop2, setLN] = useState<number>(0)
   useEffect(() => {
-    setLN(lineTop)
-  }, [lineTop])
-  useEffect(() => {
     if (!loaded.current) {
       loaded.current = true
       if (lineRef.current) {
-        let times = 80 * 2
+        let times = 1000
         let int = setInterval(() => {
-          if (!times || !lineRef.current) clearInterval(int)
+          if (!times) clearInterval(int)
+          if (!lineRef.current) return
           dispatch(
             updateLineTopAction(
-              lineRef.current!.getBoundingClientRect().top + window.scrollY - 22
+              lineRef.current.getBoundingClientRect().top + window.scrollY - 22
             )
           )
           times--
@@ -29,6 +28,14 @@ export default function Footer() {
       }
     }
   }, [])
+  useEffect(() => {
+    setLN(lineTop)
+  }, [lineTop])
+  useEffect(() => {
+    if (planeLand && lineRef.current) {
+      lineRef.current.className = st.lineAcivate
+    }
+  }, [planeLand])
   return (
     <footer className={st.mainFooter}>
       <div className={st.line} ref={lineRef}></div>

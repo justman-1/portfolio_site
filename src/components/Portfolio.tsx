@@ -9,7 +9,7 @@ const projectInfo = [
     headText: `Лэндинг для центра недвижимости`,
     descText: `Сайт был написан на Next js, адаптивен под планшеты и
     смартфоны. Присутствует СЕО-оптимизация`,
-    imgSources: ["/landing/1.png", "/landing/2.png", "/landing/3.png"],
+    imgSources: ["/landing/1.png", "/landing/3.png", "/landing/4.png"],
   },
   {
     headText: `Новостной сайт`,

@@ -1,18 +1,3 @@
-@keyframes appearHeader {
-  from {
-    opacity: 1;
-    top: -2.5em;
-  }
-  50% {
-    opacity: 1;
-    top: -2.5em;
-  }
-  to {
-    opacity: 1;
-    top: 0em;
-  }
-}
-
 @keyframes appearCont {
   from {
     opacity: 0;
@@ -47,6 +32,7 @@
   left: 0px;
   font-size: 15px;
   text-align: center;
+  transition: all 0.25s ease-out;
   animation: appearHeader 0.5s ease-out;
   z-index: 1001;
 }
@@ -177,7 +163,6 @@
     margin: 12% auto;
     display: flex;
     opacity: 0;
-    /* animation: appearOther 8.3s ease-out; */
     @media (max-width: 800px) {
       margin-top: 5%;
     }

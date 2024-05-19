@@ -1,6 +1,9 @@
 import Image from "next/image"
-import { memo, useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import st from "../styles/Projects.module.scss"
+import { useRouter } from "next/router"
+import { useAppDispatch } from "@/store/hook"
+import { portfolioAppear } from "@/store/loadSlice"
 
 interface propsType {
   headText: string
@@ -9,26 +12,9 @@ interface propsType {
   using: boolean
 }
 
-interface ImgPropsType {
-  src: string
-}
-
-const ImgMemo = memo(function ImageMemoFunc(props: ImgPropsType) {
-  return (
-    <>
-      <Image
-        src={"/portfolio" + props.src}
-        width={900}
-        height={900}
-        alt="Демонстрация проекта не загрузилась :("
-        className={st.projectImgIn}
-        priority
-      />
-    </>
-  )
-})
-
 export default function Project(props: propsType): JSX.Element {
+  const dispatch = useAppDispatch()
+  const router = useRouter()
   const line = useRef<HTMLDivElement>(null)
   const imgsRef = useRef<HTMLDivElement>(null)
   const loaded = useRef<boolean>(false)
@@ -49,13 +35,16 @@ export default function Project(props: propsType): JSX.Element {
     line.current.style.width = on ? "95%" : "0%"
   }
   function changeImg(toRight: boolean, isButton: boolean) {
-    if (isImgChanging.current) return
+    if (isImgChanging.current || !imgsRef.current) return
     changeImgI.current++
     isImgChanging.current = true
-    imgsRef.current!.style.transition = `all ${isButton ? 0.5 : 1}s ease`
+    imgsRef.current.style.transition = `all ${isButton ? 0.5 : 1}s ease`
     setTimeout(() => (isImgChanging.current = false), isButton ? 100 : 800)
     if (toRight) return setImgCurr((prev) => (prev + 1) % imgSources.length)
     setImgCurr((prev) => (imgSources.length + prev - 1) % imgSources.length)
+  }
+  function goToPortfolioPage() {
+    dispatch(portfolioAppear(true))
   }
 
   useEffect(() => {
@@ -72,7 +61,6 @@ export default function Project(props: propsType): JSX.Element {
       return
     }
     if (changedByClick.current) {
-      console.log("by click")
       changedByClick.current = false
       let saveImgChangeI: number = changeImgI.current
       setTimeout(() => {
@@ -82,7 +70,6 @@ export default function Project(props: propsType): JSX.Element {
       return
     }
     if (imgSources.length) {
-      console.log("line anim")
       lineAnimation(false)
       setTimeout(() => {
         lineAnimation(true)
@@ -93,7 +80,7 @@ export default function Project(props: propsType): JSX.Element {
             setTimeout(() => changeImg(true, false), 30)
           }
         }, 7000)
-      }, 20)
+      }, 50)
     }
   }, [imgCurr, props.using])
   return (
@@ -127,7 +114,14 @@ export default function Project(props: propsType): JSX.Element {
                 {imgSources.map((src, i) => {
                   return (
                     <div className={st.projectImg} key={i}>
-                      <ImgMemo src={src} />
+                      <Image
+                        src={"/portfolio" + src}
+                        width={900}
+                        height={900}
+                        alt="Демонстрация проекта не загрузилась :("
+                        className={st.projectImgIn}
+                        priority
+                      />
                     </div>
                   )
                 })}
@@ -157,7 +151,7 @@ export default function Project(props: propsType): JSX.Element {
             <div className={st.projectTextDescMob}>{props.descText}</div>
           </>
         ) : (
-          <div className={st.projectSeeAllButton}>
+          <div className={st.projectSeeAllButton} onClick={goToPortfolioPage}>
             <div className={st.projectSeeAllButtonText}>
               Просмотреть все проекты
             </div>

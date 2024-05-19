@@ -115,6 +115,23 @@
     transform: scale(1) skew(0deg);
   }
 }
+@keyframes cloudAnimMobile {
+  0% {
+    transform: scale(1.1) skew(0deg);
+  }
+  25% {
+    transform: scale(1.11) skew(-1deg);
+  }
+  50% {
+    transform: scale(1.12) skew(1deg);
+  }
+  75% {
+    transform: scale(1.11) skew(-1deg);
+  }
+  100% {
+    transform: scale(1.1) skew(0deg);
+  }
+}
 
 $contacts-mobile_width: 850px;
 
@@ -124,6 +141,7 @@ $contacts-mobile_width: 850px;
   font-size: 2em;
   text-align: center;
   animation: cloudAnim 6s ease infinite;
+  margin-bottom: 100px;
   @media (max-width: 1100px) {
     height: 55vw;
     font-size: 2.9vw;
@@ -131,6 +149,7 @@ $contacts-mobile_width: 850px;
   @media (max-width: $contacts-mobile_width) {
     height: 65vw;
     font-size: 4.5vw;
+    animation: cloudAnimMobile 6s ease infinite;
   }
   .contImage {
     width: 800px;
@@ -193,14 +212,56 @@ $contacts-mobile_width: 850px;
   }
 }
 
+@mixin lineLights($isTop, $wid) {
+  content: "";
+  display: block;
+  position: relative;
+  border-top: 2px dotted yellow;
+  height: 5px;
+  opacity: 0.4;
+  margin-top: -25px;
+  transition: all 2s linear;
+  @if $isTop == true {
+    margin-top: -27px;
+  } @else {
+    margin-top: 44px;
+  }
+  width: $wid * 1%;
+}
+
 .mainFooter {
   display: inline-block;
-  height: 100px;
+  position: absolute;
+  left: 0px;
+  height: 80px;
   width: 100%;
   border-top: 2px solid white;
+  /* padding-top: 2px; */
+  padding-bottom: 2px;
+  /* background: url("/grass.png"); */
+  background-color: #030613;
   .line {
     border-top: 2px dashed white;
-    margin-top: 52px;
+    margin-top: 42px;
     bottom: 0px;
+    width: 100%;
+    &:before {
+      @include lineLights(true, 0);
+    }
+    &:after {
+      @include lineLights(false, 0);
+    }
+  }
+  .lineAcivate {
+    border-top: 2px dashed white;
+    margin-top: 42px;
+    bottom: 0px;
+    width: 100%;
+    &:before {
+      @include lineLights(true, 100);
+    }
+    &:after {
+      @include lineLights(false, 100);
+    }
   }
 }

@@ -9,18 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-three/drei": "^9.105.6",
+    "@react-three/fiber": "^8.16.6",
     "@reduxjs/toolkit": "^2.2.3",
     "next": "14.1.4",
     "react": "^18",
     "react-dom": "^18",
     "react-redux": "^9.1.0",
-    "sharp": "^0.33.3"
+    "react-three-fiber": "^6.0.13",
+    "sharp": "^0.33.3",
+    "three": "^0.164.1"
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^18.3.2",
+    "@types/react-dom": "^18.3.0",
     "@types/react-redux": "^7.1.33",
+    "@types/three": "^0.164.0",
     "eslint": "^8",
     "eslint-config-next": "14.1.4",
     "sass": "^1.72.0",

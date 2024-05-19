@@ -1,12 +1,9 @@
-import { Tenor_Sans } from "next/font/google"
 import Image from "next/image"
 import st from "../styles/Main.module.scss"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, Suspense } from "react"
 import { scroll } from "../store/scrollSlice"
 import { load } from "../store/loadSlice.ts"
 import { useAppDispatch } from "../store/hook.ts"
-
-const inter = Tenor_Sans({ subsets: ["latin"], weight: "400" })
 
 const interval1: number = 80
 const interval2: number = 20
@@ -61,10 +58,12 @@ export default function Main() {
   }
   function addComponentsAfterLoad(s3: string) {
     setTimeout(() => {
-      linksDiv.current!.style.opacity = "1"
+      if (!linksDiv.current) return
+      linksDiv.current.style.opacity = "1"
       setLetState(29)
       setTimeout(() => {
-        lettersRef.current!.style.opacity = "1"
+        if (!lettersRef.current) return
+        lettersRef.current.style.opacity = "1"
         setTimeout(() => dispatch(load(true)), 200)
       }, 200)
     }, interval2 * s3.length + 100)
@@ -102,11 +101,12 @@ export default function Main() {
           for (let i = 0; i < s2.length; ++i)
             changeLetter(s2.substring(0, i + 1), i, 2)
           setTimeout(() => {
-            computer.current!.style.opacity = "1"
-            computer.current!.style.transition = "all 5s ease"
+            if (!computer.current) return
+            computer.current.style.opacity = "1"
+            computer.current.style.transition = "all 5s ease"
             if (window.innerWidth > 800)
-              computer.current!.style.filter = "blur(0)"
-            else computer.current!.style.filter = "brightness(20) blur(0.001)"
+              computer.current.style.filter = "blur(0)"
+            else computer.current.style.filter = "brightness(20) blur(0.001)"
             for (let i = 0; i < s3.length; ++i)
               changeLetter3(s3.substring(0, i + 1), i)
             addComponentsAfterLoad(s3)
@@ -164,9 +164,6 @@ export default function Main() {
   }, [letState])
   return (
     <>
-      <header className={st.header + " " + inter.className}>
-        Roman Malneu
-      </header>
       <div className={st.container}>
         <nav className={st.links} ref={linksDiv}>
           <div
@@ -233,7 +230,6 @@ export default function Main() {
           style={{
             transition: `all ${letState == 30 ? "0.3" : "1"}s linear`,
             filter: `blur(${letState < 30 ? "2" : "0"}px)`,
-            /* transform: `scale(${letState < 30 ? "0.93" : "1"})`, */
           }}
         >
           {letters.map((e, key) => {

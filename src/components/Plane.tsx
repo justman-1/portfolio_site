@@ -1,7 +1,15 @@
 import Image from "next/image"
 import st from "../styles/All.module.scss"
-import { useEffect, useRef, useState } from "react"
-import { useAppSelector } from "@/store/hook"
+import { useEffect, useRef, useState, Suspense } from "react"
+import { useAppDispatch, useAppSelector } from "@/store/hook"
+import { planeLandSlice } from "@/store/loadSlice"
+
+/* import * as Three from "three"
+import { Canvas } from "@react-three/fiber"
+import { OrbitControls, SpotLight } from "@react-three/drei"
+import { Group } from "three"
+import PlaneModel from "../models/Plane3d"
+import CompModel from "../models/Computer3d" */
 
 function isDeviceMobileTest(): boolean {
   return window.innerWidth <= 600
@@ -22,6 +30,7 @@ function planeV(k: number): number {
 }
 
 export default function Plane() {
+  const dispatch = useAppDispatch()
   let currTopStart: number = 700
   let vec: boolean = false //false - bottom, true - top
   let prevScroll: number = 0
@@ -33,24 +42,39 @@ export default function Plane() {
   const plane = useRef<HTMLImageElement>(null)
   const loaded = useRef<boolean>(false)
   const lineTopRedux = useAppSelector((state) => state.lineTop.top)
+  const portAppear = useAppSelector((state) => state.load.portfolioAppear)
   const [lineTop, setLineTop] = useState<number>(0)
 
   useEffect(() => {
     setLineTop(lineTopRedux)
   }, [lineTopRedux])
-
+  useEffect(() => {
+    if (!plane.current) return
+    if (portAppear) {
+      plane.current.style.opacity = "0"
+      plane.current.style.filter = "blur(10px)"
+    } else {
+      setTimeout(() => {
+        if (plane.current) {
+          plane.current.style.opacity = "1"
+          plane.current.style.filter = "blur(0)"
+        }
+      }, 600)
+    }
+  }, [portAppear])
   function reversePlane(toBottom: boolean): number {
+    if (!plane.current) return 0
     let interval: number = 0
     if (toBottom && vec) {
       interval = 350
       isPlaneReverse = true
-      plane.current!.style.transition = "0.3s all linear"
-      plane.current!.style.transform = "rotateZ(270deg)"
+      plane.current.style.transition = "0.3s all linear"
+      plane.current.style.transform = "rotateZ(270deg)"
     } else if (!toBottom && !vec) {
       interval = 350
       isPlaneReverse = true
-      plane.current!.style.transition = "0.3s all linear"
-      plane.current!.style.transform = "rotateZ(90deg)"
+      plane.current.style.transition = "0.3s all linear"
+      plane.current.style.transform = "rotateZ(90deg)"
     }
     vec = false
     return interval
@@ -68,10 +92,11 @@ export default function Plane() {
   function planeToTop() {
     let interval = reversePlane(false)
     setTimeout(() => {
+      if (!plane.current) return
       isPlaneReverse = false
-      plane.current!.style.transition =
+      plane.current.style.transition =
         "all 1s cubic-bezier(0.215, 0.61, 0.355, 1)"
-      plane.current!.style.top = currTop + "px"
+      plane.current.style.top = currTop + "px"
       vec = true
     }, interval)
   }
@@ -85,9 +110,11 @@ export default function Plane() {
     isPlaneEnd = true
     let interval = reversePlane(true) + 20
     setTimeout(() => {
+      if (!plane.current) return
+      setTimeout(() => dispatch(planeLandSlice(true)), 500)
       let ost: number = needTop - currTop
       let ostLeft: number = 75 - (startLeft / window.innerWidth) * 100
-      plane.current!.style.transition = "all 0.35s linear"
+      plane.current.style.transition = "all 0.35s linear"
       let wasTime: number = 0
       let j: number = 10
       let k: number = 0.005
@@ -106,32 +133,35 @@ export default function Plane() {
         wasTime += dist / planeV(K)
         let t: number = wasTime
         setTimeout(() => {
-          plane.current!.style.top = newTop + "px"
-          plane.current!.style.left = newLeft + "%"
-          plane.current!.style.transform = `rotateZ(${newDeg}deg)`
+          if (!plane.current) return
+          plane.current.style.top = newTop + "px"
+          plane.current.style.left = newLeft + "%"
+          plane.current.style.transform = `rotateZ(${newDeg}deg)`
         }, t)
         k += k < 0.94 ? 0.03 : 0.005
         j++
       }
       setTimeout(() => {
-        plane.current!.style.transition = "all 0.8s ease-out"
-        plane.current!.style.top = needTop + "px"
-        plane.current!.style.left = "75%"
-        plane.current!.style.transform = `rotateZ(180deg)`
+        if (!plane.current) return
+        plane.current.style.transition = "all 0.8s ease-out"
+        plane.current.style.top = needTop + "px"
+        plane.current.style.left = "75%"
+        plane.current.style.transform = `rotateZ(180deg)`
       }, wasTime + 100)
     }, interval)
   }
 
   useEffect(() => {
-    if (!loaded.current) {
+    if (!loaded.current && plane.current) {
       loaded.current = true
       currTopStart = (window.innerHeight - 50) * 0.5
       startLeft = window.innerWidth < 1500 ? 0 : (window.innerWidth - 1500) / 2
-      plane.current!.style.left = startLeft + "px"
+      plane.current.style.left = startLeft + "px"
       setTimeout(() => {
         if (!plane.current) return
         plane.current!.style.top = currTopStart + "px"
         window.onscroll = (e) => {
+          /* dispatch(scroll({ part: "scrollY", val: window.scrollY })) */
           if (isPlaneEnd) return
           let currScroll: number = window.scrollY
           currTop = currTopStart + currScroll
@@ -156,18 +186,26 @@ export default function Plane() {
       }, 8100)
     }
   }, [])
-
   return (
     <>
       <Image
-        ref={plane}
         src="/plane.png"
+        ref={plane}
         width={100}
         height={100}
         alt=""
         className={st.plane}
         priority
       />
+      {/* <div style={{position: "absolute"}}>
+            <Canvas style={{ height: "800px", width: "800px" }}>
+              <directionalLight color="white" position={[-20, 30, 10]} />
+              <Suspense fallback={null}>
+                <CompModel scale={0.005} rotation={[-1.4, 0, -0.5]} />
+              </Suspense>
+              <OrbitControls />
+            </Canvas>
+          </div> */}
     </>
   )
 }
