@@ -104,7 +104,7 @@ export default function Plane() {
     let needTop: number = -1
     //get needTop:
     setLineTop((lineTop1) => {
-      needTop = lineTop1 + (isDeviceMobileTest() ? 4.5 : 0)
+      needTop = lineTop1 + (isDeviceMobileTest() ? 4.5 : -1)
       return lineTop1
     })
     isPlaneEnd = true

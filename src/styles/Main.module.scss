@@ -179,6 +179,12 @@
         height: 40px;
         font-size: 1.8em;
       }
+      span {
+        margin-top: 2px;
+        @media (max-width: 600px) {
+          margin-top: 0px;
+        }
+      }
     }
   }
 }

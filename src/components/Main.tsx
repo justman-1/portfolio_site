@@ -30,7 +30,7 @@ let minSkillState: number = 0
 let minSkillStateOst: number = skills.length
 let baseLetter = {
   height: "47px",
-  fontSize: "2.2em",
+  fontSize: "1.9em",
 }
 
 export default function Main() {
@@ -239,8 +239,6 @@ export default function Main() {
                 style={{
                   width: 100 / letters.length + "%",
                   color: e[1] ? "#1A69F3" : "white",
-                  height: baseLetter.height,
-                  fontSize: baseLetter.fontSize,
                 }}
                 key={key}
               >
