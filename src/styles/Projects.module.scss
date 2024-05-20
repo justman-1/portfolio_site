@@ -19,6 +19,9 @@
 }
 .projects {
   transition: all 0.35s ease;
+  @media (max-width: 900px) {
+    margin-bottom: 25%;
+  }
   .project {
     display: flex;
     margin-top: 1vw;
