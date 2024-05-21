@@ -181,6 +181,7 @@
       }
       span {
         margin-top: 2px;
+        transition: all 0.2s ease;
         @media (max-width: 600px) {
           margin-top: 1px;
         }

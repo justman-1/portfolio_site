@@ -165,7 +165,6 @@ export default function Plane() {
           if (isPlaneEnd) return
           let currScroll: number = window.scrollY
           currTop = currTopStart + currScroll
-          console.log("is phone? " + isDeviceMobileTest())
           if (
             (!isDeviceMobileTest() &&
               currScroll + window.innerHeight >
