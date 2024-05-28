@@ -34,7 +34,7 @@ export default function PortfolioFull() {
           dispatch(portfolioAppear(false))
         }}
       />
-      <div className={st.portTitle}>Портфолио</div>
+      <div className={st.portTitle}>Мои работы</div>
       <div className={st.portPostTitle}>
         Здесь Вы увидите демонстрацию моих проектов и краткую информацию о них.
         Опишу, с чем именно работал и какой вклад это внесло в меня как

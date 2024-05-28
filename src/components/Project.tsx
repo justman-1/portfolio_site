@@ -109,7 +109,10 @@ export default function Project(props: propsType): JSX.Element {
               <div
                 className={st.projectImgsFlex}
                 ref={imgsRef}
-                style={{ left: -100 * imgCurr + "%" }}
+                style={{
+                  left: -100 * imgCurr + "%",
+                  width: props.imgSources.length * 100 + "%",
+                }}
               >
                 {imgSources.map((src, i) => {
                   return (

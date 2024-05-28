@@ -10,7 +10,12 @@ const projectInfo = [
     descText: `Сайт был написан на Next js(предпочли его обычному React'у, 
     потому что у клиента был запрос на СЕО-оптимизацию сайта), адаптивен
     под разные десктоп разрешения, под планшеты и смартфоны.`,
-    imgSources: ["/landing/1.png", "/landing/3.png", "/landing/4.png"],
+    imgSources: [
+      "/landing/1.png",
+      "/landing/3.png",
+      "/landing/4.png",
+      "/landing/2.png",
+    ],
   },
   {
     headText: `Сайт вакансий`,
@@ -18,13 +23,48 @@ const projectInfo = [
     можно добавлять свое резюме или же вакансии. Для безопасной аутентификации
     использовал JWT. Использовал кеширование информации о последних вакансиях
     при помощи Node-cache для увеличения скорости загрузки данных на сайте.`,
-    imgSources: ["/vacancy/1.png", "/vacancy/2.png", "/vacancy/3.png"],
+    imgSources: [
+      "/vacancy/1.png",
+      "/vacancy/2.png",
+      "/vacancy/3.png",
+      "/vacancy/4.png",
+    ],
   },
   {
+    headText: `Сайт с ресторанами`,
+    descText: `Создавался для публикации ресторанов с информацией о них,
+     в то же время пользователи могут оставлять отзывы о ресторане.
+     Есть фильтр ресторанов по интересующим кухням и отсутствию/наличию доставки.
+     Сайт написан на Node js(Express js). Клиент остался довольным и оставил
+     положительный отзыв(последнее фото). `,
+    imgSources: [
+      "/restaurants/1.png",
+      "/restaurants/2.png",
+      "/restaurants/3.png",
+      "/restaurants/4.png",
+    ],
+  },
+  {
+    headText: `Новостной сайт`,
+    descText: `На сайте работает оптимизированная подгрузка изображений, что делает
+    его производительность выше. Так же создана удобная система написания статей для их
+    дальнейшей публикации. Сайт написан на Next js + Express js. Так же, как и в других проектах,
+    используется кеширование данных.`,
+    imgSources: ["/news/1.png", "/news/2.png", "/news/3.png"],
+  },
+  {
+    headText: `Веб-приложение "Заметки"`,
+    descText: `Данная работа содержит в себе весь функционал заметок, но при этом
+    присутствует их импорт и экспорт в зарегистрированный аккаунт, что позволяет удобно
+    пользоваться заметками на нескольких устройствах, синхронизируя данные. Сайт написан на Express js + React js.
+    Используется JWT.`,
+    imgSources: ["/notes/1.png", "/notes/2.png"],
+  },
+  /* {
     headText: `watch all`,
     descText: ``,
     imgSources: [],
-  },
+  }, */
 ]
 
 export default function Portfolio() {
@@ -51,7 +91,7 @@ export default function Portfolio() {
   }
   return (
     <>
-      <h1 className={stAll.partHead}>Мои проекты</h1>
+      <h1 className={stAll.partHead}>Мои работы</h1>
       <div className={st.arrows}>
         <Image
           className={st.projectArrow1}
