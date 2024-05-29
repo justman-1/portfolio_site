@@ -13,7 +13,7 @@ let frontendSkills: [string, string][] = [
 ]
 let backendSkills: [string, string][] = [
   ["Node JS", "nodejs.png"],
-  ["Nest js", "nest.png"],
+  /* ["Nest js", "nest.png"], */
   ["Express JS", "express.png"],
   ["MySQL", "mysql.png"],
   ["MongoDB", "mongo.png"],
