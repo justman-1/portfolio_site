@@ -48,9 +48,9 @@ export default function Main() {
       loaded.current = true
       let s1: string = "Fullstack JavaScript"
       let s2: string = "Разработчик"
-      let s3: string = `Доброго времени суток! Меня зовут Роман, и я специализируюсь на
+      let s3: string = `Добро пожаловать! Меня зовут Роман, и я специализируюсь на
       разработке веб-сайтов абсолютно разной направленности и масштаба.
-      Создам сайт исходя из вашего запроса, не доставив лишних хлопот :)`
+      Создам сайт исходя из Вашего запроса, не доставив лишних хлопот :)`
       setText1("")
       setText2("")
       setText3("")
@@ -83,7 +83,7 @@ export default function Main() {
             Я
           </div>
           <div className={st.item} onClick={() => goLink("skills")}>
-            Навыки
+            Стек
           </div>
           <div className={st.item} onClick={() => goLink("portfolio")}>
             Портфолио
