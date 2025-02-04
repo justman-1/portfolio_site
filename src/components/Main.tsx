@@ -83,7 +83,7 @@ export default function Main() {
             Я
           </div>
           <div className={st.item} onClick={() => goLink("skills")}>
-            Навыки
+            Стек
           </div>
           <div className={st.item} onClick={() => goLink("portfolio")}>
             Портфолио
