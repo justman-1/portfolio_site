@@ -51,7 +51,7 @@ export default function About() {
         </li>
         <li className={st.textPoint}>
           <strong style={{ color: "#C8D9FF" }}>Проекты: </strong>
-          Разработал большое количество веб-приложений, телеграм-ботов
+          Разработал большое количество разного рода сайтов и телеграм-ботов
           {/* (попользоваться{" "}
           <a
             href="https://t.me/DictionaryEnglishWordsBot"
@@ -66,7 +66,7 @@ export default function About() {
         </li>
         <div style={{ marginTop: "40px" }}>
           Я постоянно совершенствуюсь и готов предложить свои знания и опыт для
-          реализации того, что действительно стоит внимания.
+          воплощения Ваших уникальных идей в реальность.
         </div>
       </div>
     </>
