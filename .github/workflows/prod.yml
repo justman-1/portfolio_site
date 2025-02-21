@@ -45,5 +45,6 @@ jobs:
             docker container rm $(docker ps -a -q --filter "ancestor=romannst/portfolio-site-nextjs:my-image")
             docker image rm romannst/portfolio-site-nextjs:my-image
             docker pull romannst/portfolio-site-nextjs:my-image
+            cd portfolio-site
             docker-compose build
             docker-compose up
