@@ -4,12 +4,14 @@ import Image from "next/image"
 let frontendSkills: [string, string][] = [
   ["HTML", "html.png"],
   ["CSS", "css.png"],
+  ["Sass", "sass.png"],
   ["JavaScript", "js.png"],
   ["React JS", "reactjs.png"],
   ["Next JS", "nextjs.png"],
   ["Redux Toolkit", "rtk.png"],
-  ["Sass", "sass.png"],
+  ["Zustand", "zustand.png"],
   ["Material UI", "materialui.png"],
+  ["Chakra UI", "chakraui.png"],
 ]
 let backendSkills: [string, string][] = [
   ["Node JS", "nodejs.png"],

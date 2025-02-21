@@ -2,6 +2,7 @@ import { useRef } from "react"
 import st from "../styles/All.module.scss"
 import { useAppSelector, useAppDispatch } from "@/store/hook"
 import { scroll } from "@/store/scrollSlice"
+import AboutSubtitle from "./AboutSubtitle"
 
 export default function About() {
   const isScroll = useAppSelector((state) => state.scroll.about)
@@ -19,13 +20,13 @@ export default function About() {
         </div>
         <h3>Вкратце про мой путь:</h3>
         <li className={st.textPoint}>
-          <strong style={{ color: "#C8D9FF" }}>Профессиональный рост: </strong>
+          <AboutSubtitle subtitle="Профессиональный рост:" />
           Начал свою карьеру в веб-разработке 4 года назад, с тех пор постоянно
           расширяю свои знания и навыки, изучая новые технологии, которые
           внедряю в рабочие проекты.
         </li>
         <li className={st.textPoint}>
-          <strong style={{ color: "#C8D9FF" }}>Коммерческий опыт: </strong>
+          <AboutSubtitle subtitle="Коммерческий опыт:" />
           За год работы на фриланс-биржах(Kwork + работа с заказчиками с
           телеграма) получил богатый опыт создания сайтов, которые вы можете
           увидеть в моем{" "}
@@ -41,16 +42,14 @@ export default function About() {
         </li>
         <h3>Достижения и навыки:</h3>
         <li className={st.textPoint}>
-          <strong style={{ color: "#C8D9FF" }}>
-            Алгоритмическая подготовка:{" "}
-          </strong>
-          Стал победителем третьего этапа белорусской республиканской олимпиады
-          по информатике. Данное соревнование сильно развило во мне умение
+          <AboutSubtitle subtitle="Алгоритмическая подготовка:" /> Стал
+          победителем третьего этапа белорусской республиканской олимпиады по
+          информатике. Данное соревнование сильно развило во мне умение
           применять алгоритмы и математику в программировании. Благодаря этому я
           создаю качественный оптимизированный продукт.
         </li>
         <li className={st.textPoint}>
-          <strong style={{ color: "#C8D9FF" }}>Проекты: </strong>
+          <AboutSubtitle subtitle="Проекты:" />
           Разработал большое количество разного рода сайтов и телеграм-ботов
           {/* (попользоваться{" "}
           <a

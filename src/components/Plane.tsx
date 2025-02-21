@@ -161,7 +161,6 @@ export default function Plane() {
         if (!plane.current) return
         plane.current!.style.top = currTopStart + "px"
         window.onscroll = (e) => {
-          /* dispatch(scroll({ part: "scrollY", val: window.scrollY })) */
           if (isPlaneEnd) return
           let currScroll: number = window.scrollY
           currTop = currTopStart + currScroll
@@ -201,15 +200,6 @@ export default function Plane() {
         className={st.plane}
         priority
       />
-      {/* <div style={{position: "absolute"}}>
-            <Canvas style={{ height: "800px", width: "800px" }}>
-              <directionalLight color="white" position={[-20, 30, 10]} />
-              <Suspense fallback={null}>
-                <CompModel scale={0.005} rotation={[-1.4, 0, -0.5]} />
-              </Suspense>
-              <OrbitControls />
-            </Canvas>
-          </div> */}
     </>
   )
 }
