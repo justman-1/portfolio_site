@@ -3,7 +3,10 @@ version: "3"
 #NOT FULLY CONFIG. FULLY CONFIG IN TELEGRAM SAVED MESSAGES
 services:
   nextjs:
-    build: .
+    image: romannst/portfolio-site-nextjs:my-image
+    build:
+      context: .
+      dockerfile: Dockerfile
   nginx:
     build: ./nginx
     restart: unless-stopped
