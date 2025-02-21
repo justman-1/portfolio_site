@@ -42,7 +42,8 @@ jobs:
           password: ${{secrets.HOST_PASSWORD}}
           script: |
             docker stop $(docker ps -a -q --filter "ancestor=romannst/portfolio-site-nextjs:my-image")
-            docker rm $(docker ps -a -q --filter "ancestor=romannst/portfolio-site-nextjs:my-image")
+            docker container rm $(docker ps -a -q --filter "ancestor=romannst/portfolio-site-nextjs:my-image")
+            docker image rm romannst/portfolio-site-nextjs:my-image
             docker pull romannst/portfolio-site-nextjs:my-image
             docker-compose build
             docker-compose up
