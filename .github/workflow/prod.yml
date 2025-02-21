@@ -3,8 +3,8 @@ name: Deploy App to Production
 on:
   push:
     branches:
-      - main
-
+      - dev
+#CHANGE DEV BRANCH ON MAIN FOR WORK
 jobs:
   deploy:
     runs-on: ubuntu-latest
