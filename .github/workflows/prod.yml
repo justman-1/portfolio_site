@@ -47,4 +47,4 @@ jobs:
             docker pull romannst/portfolio-site-nextjs:my-image
             cd portfolio-site
             docker-compose build
-            docker-compose up
+            docker-compose up -d
