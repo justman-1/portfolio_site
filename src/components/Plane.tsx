@@ -4,13 +4,6 @@ import { useEffect, useRef, useState, Suspense } from "react"
 import { useAppDispatch, useAppSelector } from "@/store/hook"
 import { planeLandSlice } from "@/store/loadSlice"
 
-/* import * as Three from "three"
-import { Canvas } from "@react-three/fiber"
-import { OrbitControls, SpotLight } from "@react-three/drei"
-import { Group } from "three"
-import PlaneModel from "../models/Plane3d"
-import CompModel from "../models/Computer3d" */
-
 function isDeviceMobileTest(): boolean {
   return window.innerWidth <= 600
 }

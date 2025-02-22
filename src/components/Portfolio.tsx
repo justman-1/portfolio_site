@@ -60,11 +60,6 @@ const projectInfo = [
     Используется JWT.`,
     imgSources: ["/notes/1.png", "/notes/2.png"],
   },
-  /* {
-    headText: `watch all`,
-    descText: ``,
-    imgSources: [],
-  }, */
 ]
 
 export default function Portfolio() {

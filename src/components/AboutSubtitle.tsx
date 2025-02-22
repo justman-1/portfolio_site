@@ -1,16 +1,13 @@
-//import { useAppSelector } from "@/store/hook"
 import { useEffect, useRef, useState } from "react"
 
 export default function AboutSubtitle(props: { subtitle: string }) {
   const loaded = useRef<boolean>(false)
   const [color, setColor] = useState<"white" | "#a9c3ff">("white")
-  //const isScroll = useAppSelector((state) => state.scroll.scrollY)/
   const elem = useRef<HTMLElement | null>(null)
   useEffect(() => {
     if (!loaded.current) {
       loaded.current = true
       setInterval(() => {
-        //console.log(window.scrollY)
         if (elem.current) {
           const rect = elem.current.getBoundingClientRect()
           if (
