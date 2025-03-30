@@ -17,6 +17,7 @@ let skills: string[] = [
   "REDIS",
   "CHAKRA UI",
   "ZUSTAND",
+  "TAILWIND",
 ]
 let skillState: number[] = []
 for (let i = 0; i < skills.length; ++i) skillState.push(0)

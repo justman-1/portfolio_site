@@ -36,7 +36,7 @@ export default function Contacts() {
               priority
             />
           </a>
-          <a href="https://codeforces.com/profile/Pilat_st" target="_blank">
+          {/* <a href="https://codeforces.com/profile/Pilat_st" target="_blank">
             <Image
               className={st.contLinkImg}
               src="/codeforces.png"
@@ -45,7 +45,7 @@ export default function Contacts() {
               alt=""
               priority
             />
-          </a>
+          </a> */}
         </div>
       </div>
     </>
