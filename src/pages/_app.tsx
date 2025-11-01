@@ -1,10 +1,11 @@
-import "@/styles/globals.css"
-import type { AppProps } from "next/app"
-import { Geologica } from "next/font/google"
-import { Provider } from "react-redux"
-import { store } from "../store/index.ts"
+import "@/styles/globals.css";
+import type { AppProps } from "next/app";
+import { Geologica } from "next/font/google";
+import { Provider } from "react-redux";
+import { store } from "../store/index.ts";
+import "../styles/Main.scss";
 
-const inter = Geologica({ subsets: ["latin"], weight: "400" })
+const inter = Geologica({ subsets: ["latin"], weight: "400" });
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -13,5 +14,5 @@ export default function App({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
       </Provider>
     </main>
-  )
+  );
 }

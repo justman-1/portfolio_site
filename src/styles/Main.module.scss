@@ -23,6 +23,7 @@
 }
 
 .header {
+  display: block;
   position: fixed;
   width: 100%;
   padding: 0.4em 0px;
@@ -35,6 +36,14 @@
   transition: all 0.25s ease-out;
   animation: appearHeader 0.5s ease-out;
   z-index: 1001;
+
+  &-text {
+    font-size: 15px;
+    margin: 0px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    height: 15px;
+  }
 }
 
 .container {

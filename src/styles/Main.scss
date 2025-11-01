@@ -1,0 +1,19 @@
+.header {
+  display: block;
+  position: fixed;
+  width: 100%;
+  padding: 0.4em 0px;
+  background-color: white;
+  color: black;
+  top: 0px;
+  left: 0px;
+  font-size: 15px;
+  text-align: center;
+  transition: all 0.25s ease-out;
+  animation: appearHeader 0.5s ease-out;
+  z-index: 1001;
+
+  &-text {
+    font-size: 15px;
+  }
+}

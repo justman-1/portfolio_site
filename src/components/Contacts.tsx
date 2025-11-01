@@ -1,5 +1,6 @@
-import st from "../styles/All.module.scss"
-import Image from "next/image"
+import { useEffect } from "react";
+import st from "../styles/All.module.scss";
+import Image from "next/image";
 
 export default function Contacts() {
   return (
@@ -49,5 +50,5 @@ export default function Contacts() {
         </div>
       </div>
     </>
-  )
+  );
 }
