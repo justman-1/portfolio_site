@@ -1,6 +1,5 @@
 version: "3"
 
-#NOT FULLY CONFIG. FULLY CONFIG IN TELEGRAM SAVED MESSAGES
 services:
   nextjs:
     image: romannst/portfolio-site-nextjs:my-image
