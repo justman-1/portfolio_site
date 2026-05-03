@@ -1,19 +1,20 @@
-import st from "../styles/All.module.scss"
-import Image from "next/image"
+import st from "../styles/All.module.scss";
+import Image from "next/image";
 
 let frontendSkills: [string, string][] = [
-  ["HTML", "html.png"],
-  ["CSS", "css.png"],
-  ["JavaScript", "js.png"],
   ["React.js", "reactjs.png"],
   ["Next.js", "nextjs.png"],
-  ["Sass", "sass.png"],
-  ["Tailwind", "tailwind.svg"],
   ["Redux Toolkit", "rtk.png"],
   ["Zustand", "zustand.png"],
   ["Material UI", "materialui.png"],
   ["Chakra UI", "chakraui.png"],
-]
+  ["Tailwind", "tailwind.svg"],
+  ["Sass", "sass.png"],
+  ["Stylus", "stylus.png"],
+  ["JavaScript", "js.png"],
+  ["HTML", "html.png"],
+  ["CSS", "css.png"],
+];
 let backendSkills: [string, string][] = [
   ["Node JS", "nodejs.png"],
   /* ["Nest js", "nest.png"], */
@@ -22,19 +23,19 @@ let backendSkills: [string, string][] = [
   ["MongoDB", "mongo.png"],
   ["Node-cache", "nodecache.png"],
   ["Redis", "redis.png"],
-]
+];
 let additionalSkills: [string, string][] = [
   ["TypeScript", "ts.png"],
   ["GIT", "git.png"],
   ["Docker", "docker.png"],
   ["JWT", "jwt.png"],
-]
+];
 
 let info: [string, [string, string][]][] = [
   ["FRONTEND", frontendSkills],
   ["BACKEND", backendSkills],
   ["А ТАКЖЕ", additionalSkills],
-]
+];
 
 export default function Skills() {
   return (
@@ -59,9 +60,9 @@ export default function Skills() {
                 </div>
               ))}
             </div>
-          )
+          );
         })}
       </div>
     </>
-  )
+  );
 }

@@ -1,141 +1,141 @@
 import st from "../styles/Main.module.scss";
 import { memo, useEffect, useRef, useState } from "react";
 
-let skills: string[] = [
+const SKILLS = [
   "TYPESCRIPT",
   "NODE JS",
   "NEXT JS",
   "MYSQL",
   "MONGO DB",
-  "MATERIAL UI",
   "REACT JS",
-  "REDUX TOOLKIT",
   "GIT",
-  "EXPRESS JS",
   "DOCKER",
   "SCSS",
-  "REDIS",
-  "CHAKRA UI",
-  "ZUSTAND",
-  "TAILWIND",
 ];
-let skillState: number[] = [];
-for (let i = 0; i < skills.length; ++i) skillState.push(0);
-let minSkillState: number = 0;
-let minSkillStateOst: number = skills.length;
-const letterInterval: number = 100;
+const LETTER_INTERVAL = 100;
 
-interface PropsType {
-  siteLoaded: boolean;
-}
-
-function Casino(props: PropsType) {
-  const loaded = useRef<boolean>(false);
-  const [letters, setLetters] = useState<[string, boolean][]>([]); //[symbol, width]
+function Casino({ siteLoaded }: { siteLoaded: boolean }) {
+  const [letters, setLetters] = useState<[string, boolean][]>([]);
   const lettersRef = useRef<HTMLDivElement>(null);
-  const [letState, setLetState] = useState<number>(0);
+
+  const timerId = useRef<NodeJS.Timeout | null>(null);
+  const phase = useRef<"idle" | "random" | "result">("idle");
+  const frameCount = useRef(0);
+
+  // инициализация сетки букв
   useEffect(() => {
-    if (!loaded.current) {
-      loaded.current = true;
-      let wid: number = lettersRef.current!.clientWidth;
-      let colvo: number =
+    if (lettersRef.current && letters.length === 0) {
+      const wid = lettersRef.current.clientWidth;
+      const count =
         window.innerWidth < 600 ? Math.floor(wid / 40) : Math.floor(wid / 50);
-      for (let i = 0; i < colvo; ++i)
-        letters.push([
-          String.fromCharCode(65 + Math.floor(Math.random() * 25)) + "",
-          false,
-        ]);
-      skills = skills.filter((skill) => skill.length <= colvo);
-      minSkillStateOst = colvo;
+      const initial = Array.from(
+        { length: count },
+        () =>
+          [String.fromCharCode(65 + Math.floor(Math.random() * 25)), false] as [
+            string,
+            boolean,
+          ],
+      );
+      setLetters(initial);
     }
   }, []);
-  useEffect(() => {
-    if (props.siteLoaded) {
-      setLetState(29);
-      setTimeout(() => {
-        if (!lettersRef.current) return;
-        lettersRef.current.style.opacity = "1";
-      }, 200);
-    }
-  }, [props.siteLoaded]);
-  useEffect(() => {
-    let newLetters: [string, boolean][] = [];
-    if (letState < 30) {
-      for (let i = 0; i < letters.length; ++i)
-        newLetters.push([
-          String.fromCharCode(65 + Math.floor(Math.random() * 25)) + "",
-          false,
-        ]);
-      setLetters(newLetters);
-      setTimeout(() => {
-        setLetState(letState + 1);
-      }, letterInterval - letState * 2);
-    } else {
-      newLetters = newLetters.concat(letters);
-      let skillI: number = Math.floor(Math.random() * skills.length);
-      let i = 0;
-      let changed: boolean = false;
-      while (true) {
-        if (skillState[i] <= minSkillState) {
-          changed = true;
-          if (!skillI) {
-            skillI = i;
-            break;
-          } else skillI--;
+
+  const runCycle = () => {
+    if (timerId.current) clearTimeout(timerId.current);
+
+    phase.current = "random";
+    frameCount.current = 0;
+
+    const animate = () => {
+      if (phase.current !== "random") return;
+
+      if (frameCount.current < 30) {
+        setLetters((prev) =>
+          prev.map(() => [
+            String.fromCharCode(65 + Math.floor(Math.random() * 25)),
+            false,
+          ]),
+        );
+
+        const delay = LETTER_INTERVAL - frameCount.current * 2;
+        frameCount.current++;
+        timerId.current = setTimeout(animate, Math.max(10, delay));
+      } else {
+        phase.current = "result";
+        showSkill();
+      }
+    };
+
+    animate();
+  };
+
+  const showSkill = () => {
+    setLetters((prev) => {
+      const availableSkills = SKILLS.filter((s) => s.length <= prev.length);
+      const skill =
+        availableSkills[Math.floor(Math.random() * availableSkills.length)];
+      const pos = Math.floor(Math.random() * (prev.length - skill.length));
+
+      const nextLetters = [...prev];
+
+      for (let i = 0; i < nextLetters.length; i++)
+        nextLetters[i] = [nextLetters[i][0], false];
+
+      for (let i = 0; i < skill.length; i++) {
+        if (skill[i] !== " ") {
+          nextLetters[pos + i] = [skill[i], true];
         }
-        i = i < skills.length - 1 ? i + 1 : 0;
-        if (i == 0 && !changed) break;
       }
-      skillState[skillI]++;
-      minSkillStateOst--;
-      if (!minSkillStateOst) {
-        minSkillStateOst = skills.length;
-        minSkillState++;
-      }
-      let pos: number = Math.floor(
-        Math.random() * (letters.length - skills[skillI].length)
-      );
-      for (let i = 0; i < skills[skillI].length; ++i) {
-        if (skills[skillI][i] != " ")
-          newLetters[pos + i] = [skills[skillI][i], true];
-      }
-      setLetters(newLetters);
-      setTimeout(() => {
-        setLetState(0);
-      }, 2500);
+      return nextLetters;
+    });
+
+    timerId.current = setTimeout(() => {
+      if (siteLoaded) runCycle();
+    }, 2500);
+  };
+
+  // запуск при загрузке
+  useEffect(() => {
+    if (siteLoaded) {
+      runCycle();
+      if (lettersRef.current) lettersRef.current.style.opacity = "1";
     }
-  }, [letState]);
+    return () => {
+      if (timerId.current) clearTimeout(timerId.current);
+      phase.current = "idle";
+    };
+  }, [siteLoaded]);
+
   return (
     <div
       className={st.randLetters}
       ref={lettersRef}
-      style={{
-        transition: `all ${letState == 30 ? "0.3" : "1"}s linear`,
-        filter: `blur(${letState < 30 ? "2" : "0"}px)`,
-      }}
+      style={{ opacity: 0, transition: "opacity 0.5s linear" }}
     >
-      {letters.map((e, key) => {
-        return (
-          <div
-            className={st.letter}
+      {letters.map((e, key) => (
+        <div
+          className={st.letter}
+          key={key}
+          style={{
+            width: `${100 / letters.length}%`,
+            color: e[1] ? "#1A69F3" : "white",
+            filter: phase.current === "random" ? "blur(2px)" : "blur(0px)",
+            transition: "filter 0.3s, color 0.2s",
+          }}
+        >
+          <span
             style={{
-              width: 100 / letters.length + "%",
-              color: e[1] ? "#1A69F3" : "white",
+              transform: e[1] ? "scale(1.15)" : "scale(1)",
+              display: "inline-block",
+              transition: "transform 0.3s",
             }}
-            key={key}
           >
-            <span
-              style={{
-                transform: `scale(${e[1] ? "1.1" : "1"})`,
-              }}
-            >
-              {e[0]}
-            </span>
-          </div>
-        );
-      })}
+            {e[0]}
+          </span>
+        </div>
+      ))}
     </div>
   );
 }
 
-export default Casino;
+export default memo(Casino);
